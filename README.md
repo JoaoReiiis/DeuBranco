@@ -6,8 +6,8 @@ Este reposiório visa criar um sistema de minigame multiplayer voltado para perg
 
 > Caio Teixeira Ladeira: PO.
 
-> Giovani Felipe Godoi: Frontend.
+> Giovane Felipe Godoi Oliveira: Frontend & Design.
 
 ## Tecnologias utilizadas
 **Backend**: Spring Boot
-**Banco de dados**: Poostgrees
+**Banco de dados**: Postgres
