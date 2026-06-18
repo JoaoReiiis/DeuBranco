@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import deu_branco_api.controller.dto.JogadorCreateRequest;
+import deu_branco_api.controller.dto.JogadorNomeUpdateRequest;
 import deu_branco_api.controller.dto.JogadorResponse;
 import deu_branco_api.controller.dto.JogadorUpdateRequest;
 import deu_branco_api.model.Jogador;
@@ -99,6 +101,47 @@ public class JogadorController {
     @DeleteMapping("/me")
     public ResponseEntity<Void> removerMe(@AuthenticationPrincipal Jwt jwt) {
         jogadorService.removerJogadorAutenticado(jwt.getSubject());
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(
+            summary = "Atualizar nome de outro jogador",
+            description = "Permite que um ADMIN atualize apenas o nome publico de outro jogador.",
+            security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Nome atualizado."),
+            @ApiResponse(responseCode = "400", description = "Dados invalidos."),
+            @ApiResponse(responseCode = "401", description = "Token ausente ou invalido."),
+            @ApiResponse(responseCode = "403", description = "Usuario autenticado nao e ADMIN."),
+            @ApiResponse(responseCode = "404", description = "Jogador nao encontrado.")
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<JogadorResponse> atualizarNomeDeOutroJogador(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable Long id,
+            @Valid @RequestBody JogadorNomeUpdateRequest request) {
+        Jogador jogador = jogadorService.atualizarNomeDeOutroJogador(jwt.getSubject(), id, request.nome());
+
+        return ResponseEntity.ok(JogadorResponse.fromModel(jogador));
+    }
+
+    @Operation(
+            summary = "Excluir outro jogador",
+            description = "Permite que um ADMIN remova a conta de outro jogador.",
+            security = @SecurityRequirement(name = "bearerAuth"))
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Jogador removido."),
+            @ApiResponse(responseCode = "400", description = "Operacao invalida."),
+            @ApiResponse(responseCode = "401", description = "Token ausente ou invalido."),
+            @ApiResponse(responseCode = "403", description = "Usuario autenticado nao e ADMIN."),
+            @ApiResponse(responseCode = "404", description = "Jogador nao encontrado.")
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> removerOutroJogador(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable Long id) {
+        jogadorService.removerOutroJogador(jwt.getSubject(), id);
 
         return ResponseEntity.noContent().build();
     }

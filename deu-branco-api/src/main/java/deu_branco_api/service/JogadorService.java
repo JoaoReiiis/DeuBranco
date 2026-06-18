@@ -66,7 +66,46 @@ public class JogadorService {
         jogadorRepository.delete(jogador);
     }
 
+    @Transactional
+    public Jogador atualizarNomeDeOutroJogador(String emailAdmin, Long jogadorId, String nome) {
+        Jogador admin = buscarPorEmail(emailAdmin);
+        Jogador jogador = buscarPorId(jogadorId);
+
+        if (admin.getId().equals(jogador.getId())) {
+            throw new IllegalArgumentException("Use o endpoint /jogadores/me para atualizar a propria conta.");
+        }
+
+        jogador.setNome(normalizarNome(nome));
+
+        return jogadorRepository.save(jogador);
+    }
+
+    @Transactional
+    public void removerOutroJogador(String emailAdmin, Long jogadorId) {
+        Jogador admin = buscarPorEmail(emailAdmin);
+        Jogador jogador = buscarPorId(jogadorId);
+
+        if (admin.getId().equals(jogador.getId())) {
+            throw new IllegalArgumentException("Use o endpoint /jogadores/me para remover a propria conta.");
+        }
+
+        jogadorRepository.delete(jogador);
+    }
+
+    private Jogador buscarPorId(Long id) {
+        return jogadorRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Jogador nao encontrado com id: " + id));
+    }
+
     private String normalizarEmail(String email) {
         return email == null ? null : email.trim().toLowerCase();
+    }
+
+    private String normalizarNome(String nome) {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome do jogador e obrigatorio.");
+        }
+
+        return nome.trim();
     }
 }

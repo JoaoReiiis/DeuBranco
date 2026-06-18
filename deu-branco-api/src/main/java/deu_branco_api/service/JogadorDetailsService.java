@@ -27,7 +27,7 @@ public class JogadorDetailsService implements UserDetailsService {
         return User.builder()
                 .username(jogador.getEmail())
                 .password(jogador.getSenha())
-                .authorities("ROLE_JOGADOR")
+                .authorities("ROLE_" + jogador.getRole().name())
                 .build();
     }
 }

@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import deu_branco_api.model.Jogador;
+import deu_branco_api.model.Role;
 import deu_branco_api.repository.JogadorRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -61,6 +62,7 @@ class JogadorServiceTest {
         Jogador jogadorCriado = jogadorService.criar(novoJogador);
 
         assertThat(jogadorCriado.getSenha()).isEqualTo("senha-hash");
+        assertThat(jogadorCriado.getRole()).isEqualTo(Role.JOGADOR);
         verify(passwordEncoder).encode("12345678");
         verify(jogadorRepository).save(novoJogador);
     }
@@ -148,12 +150,78 @@ class JogadorServiceTest {
         verify(jogadorRepository).delete(jogador);
     }
 
+    @Test
+    void devePermitirAdminAlterarNomeDeOutroJogador() {
+        Jogador admin = jogador(1L, "Admin", "admin@email.com", "senha-hash", Role.ADMIN);
+        Jogador jogador = jogador(2L, "Joao Reis", "joao@email.com", "senha-hash");
+
+        when(jogadorRepository.findByEmail("admin@email.com")).thenReturn(Optional.of(admin));
+        when(jogadorRepository.findById(2L)).thenReturn(Optional.of(jogador));
+        when(jogadorRepository.save(jogador)).thenReturn(jogador);
+
+        Jogador jogadorAtualizado = jogadorService.atualizarNomeDeOutroJogador(
+                "admin@email.com", 2L, "  Joao Atualizado  ");
+
+        assertThat(jogadorAtualizado.getNome()).isEqualTo("Joao Atualizado");
+        verify(jogadorRepository).save(jogador);
+    }
+
+    @Test
+    void deveImpedirAdminAlterarNomePeloEndpointDeOutroJogadorQuandoForEleMesmo() {
+        Jogador admin = jogador(1L, "Admin", "admin@email.com", "senha-hash", Role.ADMIN);
+
+        when(jogadorRepository.findByEmail("admin@email.com")).thenReturn(Optional.of(admin));
+        when(jogadorRepository.findById(1L)).thenReturn(Optional.of(admin));
+
+        try {
+            jogadorService.atualizarNomeDeOutroJogador("admin@email.com", 1L, "Admin Novo");
+            fail("Deveria lancar erro ao tentar atualizar a propria conta pelo endpoint de outro jogador.");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        verify(jogadorRepository, never()).save(admin);
+    }
+
+    @Test
+    void devePermitirAdminRemoverOutroJogador() {
+        Jogador admin = jogador(1L, "Admin", "admin@email.com", "senha-hash", Role.ADMIN);
+        Jogador jogador = jogador(2L, "Joao Reis", "joao@email.com", "senha-hash");
+
+        when(jogadorRepository.findByEmail("admin@email.com")).thenReturn(Optional.of(admin));
+        when(jogadorRepository.findById(2L)).thenReturn(Optional.of(jogador));
+
+        jogadorService.removerOutroJogador("admin@email.com", 2L);
+
+        verify(jogadorRepository).delete(jogador);
+    }
+
+    @Test
+    void deveImpedirAdminRemoverEleMesmoPeloEndpointDeOutroJogador() {
+        Jogador admin = jogador(1L, "Admin", "admin@email.com", "senha-hash", Role.ADMIN);
+
+        when(jogadorRepository.findByEmail("admin@email.com")).thenReturn(Optional.of(admin));
+        when(jogadorRepository.findById(1L)).thenReturn(Optional.of(admin));
+
+        try {
+            jogadorService.removerOutroJogador("admin@email.com", 1L);
+            fail("Deveria lancar erro ao tentar remover a propria conta pelo endpoint de outro jogador.");
+        } catch (IllegalArgumentException exception) {
+        }
+
+        verify(jogadorRepository, never()).delete(admin);
+    }
+
     private Jogador jogador(Long id, String nome, String email, String senha) {
+        return jogador(id, nome, email, senha, Role.JOGADOR);
+    }
+
+    private Jogador jogador(Long id, String nome, String email, String senha, Role role) {
         Jogador jogador = new Jogador();
         jogador.setId(id);
         jogador.setNome(nome);
         jogador.setEmail(email);
         jogador.setSenha(senha);
+        jogador.setRole(role);
         return jogador;
     }
 }

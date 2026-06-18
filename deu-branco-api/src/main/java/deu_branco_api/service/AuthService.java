@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -39,11 +40,20 @@ public class AuthService {
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expirationInSeconds))
                 .subject(authentication.getName())
-                .claim("scope", "ROLE_JOGADOR")
+                .claim("scope", scopes(authentication))
                 .build();
         JwsHeader jwsHeader = JwsHeader.with(MacAlgorithm.HS256).build();
 
         return jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).getTokenValue();
+    }
+
+    private String scopes(Authentication authentication) {
+        return authentication.getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority)
+                .sorted()
+                .reduce((primeiro, proximo) -> primeiro + " " + proximo)
+                .orElse("ROLE_JOGADOR");
     }
 
     public long getExpirationInSeconds() {
