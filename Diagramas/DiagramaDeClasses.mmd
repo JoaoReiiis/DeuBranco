@@ -1,0 +1,71 @@
+classDiagram
+    direction LR
+
+    class Usuario {
+        <<abstract>>
+        -id : Long
+        -nome : String
+        -email : String
+        -senhaHash : String
+        -role : Role
+    }
+
+    class Jogador {
+    }
+
+    class Administrador {
+    }
+
+    class Pergunta {
+        -id : Long
+        -enunciado : Text
+        -opcaoA : Text
+        -opcaoB : Text
+        -opcaoC : Text
+        -opcaoD : Text
+        -opcaoE : Text
+        -alternativaCorreta : String
+        -disciplina : Disciplina
+        -instituicao : Instituicao
+        -imagens : List~String~
+        -ativo : Boolean
+    }
+
+    class Partida {
+        -id : Long
+        -codigoPin : String
+        -statusSala : StatusPartida
+        -criadoEm : DateTime
+        -numeroPerguntas : int
+    }
+
+    class Participacao {
+        -id : Long
+        -scorePartida : int
+        -tempoMedioRespostaMs : double
+        -entrouEm : DateTime
+    }
+
+    class Resposta {
+        -id : Long
+        -alternativaSelecionada : String
+        -correta : Boolean
+        -tempoRespostaMs : long
+        -pontuacaoObtida : int
+        -respondidaEm : DateTime
+    }
+
+    Usuario <|-- Jogador
+    Usuario <|-- Administrador
+
+    Jogador "1" --> "0..*" Partida : hospeda
+
+    Jogador "1" --> "0..*" Participacao : participa
+    Partida "1" --> "1..*" Participacao : possui
+
+    Partida "1" --> "5..30" Pergunta : sorteia
+
+    Participacao "1" --> "0..*" Resposta : registra
+    Resposta "1" --> "1" Pergunta : pergunta
+
+    Administrador "1" --> "0..*" Pergunta : gerencia
