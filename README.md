@@ -1,4 +1,18 @@
+<div align="center">
+  <img width="250" alt="Preview Deu Branco" src="https://github.com/user-attachments/assets/a0f34476-5ce3-49b5-aa7d-580fc7318300" />
+</div>
+
 # Deu Branco
+
+<p align="left">
+  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white" alt="Sass" />
+  <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
+  <img src="https://img.shields.io/badge/Spring%20Boot-%236DB33F.svg?style=for-the-badge&logo=spring-boot&logoColor=white" alt="Spring Boot" />
+  <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+</p>
 
 **Deu Branco** é uma plataforma educacional com estética corporativa voltada para um ambiente de estudo competitivo.  
 O objetivo do sistema é permitir que estudantes gerenciem seu desempenho, resolvam questões e participem de competições de conhecimento, equilibrando a alta pressão com um rigor institucional e foco.
