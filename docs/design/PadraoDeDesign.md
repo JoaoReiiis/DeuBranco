@@ -1,6 +1,6 @@
 ## Boas-vindas
 
-O documento abaixo descreve, em detalhes, todos os padrões do design elaborado no Figma para facilitar o futuro desenvolvimento do frontend da solução.
+O documento complementar abaixo descreve, em detalhes, todos os padrões do design elaborado no Figma para facilitar o futuro desenvolvimento do frontend da solução.
 
 A seguir, estão documentados os motivos por trás das escolhas de design da plataforma.
 
