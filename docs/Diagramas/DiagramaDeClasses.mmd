@@ -2,7 +2,6 @@ classDiagram
     direction LR
 
     class Usuario {
-        <<abstract>>
         -id : Long
         -nome : String
         -email : String
@@ -19,6 +18,7 @@ classDiagram
     class Pergunta {
         -id : Long
         -enunciado : Text
+        -indice : Text
         -opcaoA : Text
         -opcaoB : Text
         -opcaoC : Text
@@ -27,32 +27,34 @@ classDiagram
         -alternativaCorreta : String
         -disciplina : Disciplina
         -instituicao : Instituicao
-        -imagens : List~String~
+        -ano : Integer
+        -imagem : String
         -ativo : Boolean
     }
 
     class Partida {
         -id : Long
+        -tempoDeJogo : int
         -codigoPin : String
         -statusSala : StatusPartida
         -criadoEm : DateTime
-        -numeroPerguntas : int
+    }
+
+    class PartidaQuestao {
+        -id : Long
+        -ordem : int
     }
 
     class Participacao {
         -id : Long
         -scorePartida : int
-        -tempoMedioRespostaMs : double
-        -entrouEm : DateTime
     }
 
     class Resposta {
         -id : Long
-        -alternativaSelecionada : String
-        -correta : Boolean
-        -tempoRespostaMs : long
-        -pontuacaoObtida : int
-        -respondidaEm : DateTime
+        -alternativaMarcada : String
+        -tempoResposta : int
+        -acertou : Boolean
     }
 
     Usuario <|-- Jogador
@@ -63,9 +65,10 @@ classDiagram
     Jogador "1" --> "0..*" Participacao : participa
     Partida "1" --> "1..*" Participacao : possui
 
-    Partida "1" --> "5..30" Pergunta : sorteia
+    Partida "1" --> "5..30" PartidaQuestao : sorteia
+    Pergunta "1" --> "0..*" PartidaQuestao : compoe
 
     Participacao "1" --> "0..*" Resposta : registra
-    Resposta "1" --> "1" Pergunta : pergunta
+    Resposta "1" --> "1" PartidaQuestao : responde
 
     Administrador "1" --> "0..*" Pergunta : gerencia
