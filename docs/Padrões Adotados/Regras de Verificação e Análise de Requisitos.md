@@ -77,17 +77,6 @@ Os termos a seguir não deverão ser utilizados na especificação de requisitos
 
 ---
 
-## 6. Checklist Consolidado de Verificação
-
-Para cada requisito do documento, deverão ser aplicadas as 20 verificações abaixo. Qualquer resposta "não" implica retrabalho obrigatório antes da entrega. Este checklist será reaplicado durante as atividades de revisão e validação do projeto.
-
-| Bloco                | Itens a verificar                                                                                                                                                                                                                                                                                                                         |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Escrita do requisito | E1 (um requisito por vez) · E2 (sem termos do Anexo I) · E3 (≤ 20 palavras por passo) · E4 (vocabulário no glossário) · E5 (hierarquia correta) · E6 (7 atributos preenchidos) · E7 (agrupado por entidade) · E8 (macro→caso de uso / filho→sequência) · E9 (RNF de Corretude e Confiabilidade definidos)                                 |
-| Análise/verificação  | A1 (fonte real) · A2 (necessidade não esquecida) · A3 (uma única interpretação) · A4 (testável/mensurável) · A5 (sem contradição) · A6 (explicável em 2 min) · A7 (conciso) · A8 (rastreável para trás) · A9 (rastreável para frente: ator + interface + Kanban) · A10 (sem solução técnica embutida) · A11 (organização nas 2 dimensões) |
-
----
-
-## 7. Referência Bibliográfica
+## 6. Referência Bibliográfica
 
 MAGELA, Rogério. **Engenharia de Software Aplicada: Fundamentos.** Rio de Janeiro: Alta Books, 2006. Capítulo 1 — Análise de Requisitos: Seção 7.2 "Especificação de Requisitos" (p. 18–19) e Seção 7.3 "Análise de Requisitos" (p. 20–24).
