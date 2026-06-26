@@ -19,7 +19,9 @@ import org.springframework.data.domain.PageRequest;
 
 import deu_branco_api.model.Disciplina;
 import deu_branco_api.model.Instituicao;
+import deu_branco_api.model.PartidaStatus;
 import deu_branco_api.model.Questao;
+import deu_branco_api.repository.PartidaQuestaoRepository;
 import deu_branco_api.repository.QuestaoRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -29,11 +31,14 @@ class QuestaoServiceTest {
     @Mock
     private QuestaoRepository questaoRepository;
 
+    @Mock
+    private PartidaQuestaoRepository partidaQuestaoRepository;
+
     private QuestaoService questaoService;
 
     @BeforeEach
     void setUp() {
-        questaoService = new QuestaoService(questaoRepository);
+        questaoService = new QuestaoService(questaoRepository, partidaQuestaoRepository);
     }
 
     @Test
@@ -154,11 +159,33 @@ class QuestaoServiceTest {
         questao.setId(1L);
 
         when(questaoRepository.findById(1L)).thenReturn(Optional.of(questao));
+        when(partidaQuestaoRepository.existsByQuestaoIdAndPartidaStatusSala(1L, PartidaStatus.ANDAMENTO))
+                .thenReturn(false);
 
         questaoService.remover(1L);
 
         assertThat(questao.getAtivo()).isFalse();
         verify(questaoRepository).save(questao);
+    }
+
+    @Test
+    void deveImpedirRemocaoQuandoQuestaoEstaVinculadaAPartidaEmAndamento() {
+        Questao questao = questaoValida();
+        questao.setId(1L);
+
+        when(questaoRepository.findById(1L)).thenReturn(Optional.of(questao));
+        when(partidaQuestaoRepository.existsByQuestaoIdAndPartidaStatusSala(1L, PartidaStatus.ANDAMENTO))
+                .thenReturn(true);
+
+        try {
+            questaoService.remover(1L);
+            fail("Deveria bloquear questao vinculada a partida em andamento.");
+        } catch (IllegalArgumentException exception) {
+            assertThat(exception).hasMessage("Pergunta vinculada a partida em andamento nao pode ser excluida.");
+        }
+
+        assertThat(questao.getAtivo()).isTrue();
+        verify(questaoRepository, never()).save(questao);
     }
 
     private Questao questaoValida() {

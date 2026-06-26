@@ -4,6 +4,7 @@ import java.time.OffsetDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -34,6 +35,11 @@ public class ApiExceptionHandler {
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErroResponse> tratarEntityNotFoundException(EntityNotFoundException exception) {
         return erro(HttpStatus.NOT_FOUND, exception.getMessage());
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErroResponse> tratarAccessDeniedException(AccessDeniedException exception) {
+        return erro(HttpStatus.FORBIDDEN, exception.getMessage());
     }
 
     private ResponseEntity<ErroResponse> erro(HttpStatus status, String mensagem) {

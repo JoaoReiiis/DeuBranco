@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import deu_branco_api.model.Disciplina;
 import deu_branco_api.model.Instituicao;
+import deu_branco_api.model.PartidaStatus;
 import deu_branco_api.model.Questao;
+import deu_branco_api.repository.PartidaQuestaoRepository;
 import deu_branco_api.repository.QuestaoRepository;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -19,9 +21,11 @@ import jakarta.persistence.EntityNotFoundException;
 public class QuestaoService {
 
     private final QuestaoRepository questaoRepository;
+    private final PartidaQuestaoRepository partidaQuestaoRepository;
 
-    public QuestaoService(QuestaoRepository questaoRepository) {
+    public QuestaoService(QuestaoRepository questaoRepository, PartidaQuestaoRepository partidaQuestaoRepository) {
         this.questaoRepository = questaoRepository;
+        this.partidaQuestaoRepository = partidaQuestaoRepository;
     }
 
     @Transactional
@@ -65,8 +69,15 @@ public class QuestaoService {
     @Transactional
     public void remover(Long id) {
         Questao questao = buscarPorId(id);
+        garantirQuestaoNaoEstaEmPartidaEmAndamento(id);
         questao.setAtivo(false);
         questaoRepository.save(questao);
+    }
+
+    private void garantirQuestaoNaoEstaEmPartidaEmAndamento(Long questaoId) {
+        if (partidaQuestaoRepository.existsByQuestaoIdAndPartidaStatusSala(questaoId, PartidaStatus.ANDAMENTO)) {
+            throw new IllegalArgumentException("Pergunta vinculada a partida em andamento nao pode ser excluida.");
+        }
     }
 
     private void prepararParaCriacao(Questao questao) {

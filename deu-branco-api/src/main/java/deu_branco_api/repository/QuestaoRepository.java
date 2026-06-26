@@ -1,5 +1,8 @@
 package deu_branco_api.repository;
 
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -28,4 +31,18 @@ public interface QuestaoRepository extends JpaRepository<Questao, Long> {
     boolean existsByEnunciadoAndInstituicao(String enunciado, Instituicao instituicao);
 
     boolean existsByEnunciadoAndInstituicaoAndIdNot(String enunciado, Instituicao instituicao, Long id);
+
+    long countByAtivoTrueAndDisciplinaIn(Collection<Disciplina> disciplinas);
+
+    @Query(value = """
+            SELECT *
+            FROM pergunta
+            WHERE ativo = TRUE
+              AND disciplina IN (:disciplinas)
+            ORDER BY random()
+            LIMIT :quantidade
+            """, nativeQuery = true)
+    List<Questao> sortearAtivasPorDisciplinas(
+            @Param("disciplinas") Collection<String> disciplinas,
+            @Param("quantidade") int quantidade);
 }

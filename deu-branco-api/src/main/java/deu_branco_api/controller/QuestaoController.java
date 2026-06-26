@@ -97,6 +97,7 @@ public class QuestaoController {
     @Operation(summary = "Excluir questao", description = "Desativa uma questao por exclusao logica.")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Questao desativada."),
+            @ApiResponse(responseCode = "400", description = "Questao vinculada a partida em andamento."),
             @ApiResponse(responseCode = "404", description = "Questao nao encontrada.")
     })
     @DeleteMapping("/{id}")
