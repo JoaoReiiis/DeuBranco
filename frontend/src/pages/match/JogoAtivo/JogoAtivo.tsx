@@ -141,7 +141,7 @@ export function JogoAtivo() {
           <span className={styles.questionLabel}>
             Question {currentIndex + 1}/{totalQuestions}
           </span>
-          <ProgressBar value={progress} />
+          <ProgressBar value={progress} max={100} />
           <div className={styles.timer}>
             <span className={`${styles.timerNum} ${remaining <= 5 ? styles['timerNum--urgent'] : ''}`}>
               {remaining}
