@@ -5,7 +5,7 @@ import { DISCIPLINAS, INSTITUICOES, type QuestaoRequest, type Alternativa } from
 import { Button } from '../../../components/ui/Button/Button';
 import styles from './EditarPergunta.module.scss';
 
-const OPCOES: Alternativa[] = ['A', 'B', 'C', 'D'];
+const OPCOES: Alternativa[] = ['A', 'B', 'C', 'D', 'E'];
 
 export function EditarPergunta() {
   const { id } = useParams<{ id: string }>();

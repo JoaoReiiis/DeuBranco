@@ -5,7 +5,7 @@ import { DISCIPLINAS, INSTITUICOES, type QuestaoRequest, type Alternativa, type 
 import { Button } from '../../../components/ui/Button/Button';
 import styles from './RegistrarPergunta.module.scss';
 
-const OPCOES: Alternativa[] = ['A', 'B', 'C', 'D'];
+const OPCOES: Alternativa[] = ['A', 'B', 'C', 'D', 'E'];
 
 const EMPTY: QuestaoRequest = {
   enunciado: '',
