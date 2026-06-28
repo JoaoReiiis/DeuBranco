@@ -19,8 +19,9 @@ export function useMatchSocket({
   const clientRef = useRef<Client | null>(null);
 
   useEffect(() => {
+    const proto = window.location.protocol === 'https:' ? 'wss' : 'ws';
     const client = new Client({
-      brokerURL: `ws://localhost:8080/ws`,
+      brokerURL: `${proto}://${window.location.host}/ws`,
       connectHeaders: { Authorization: `Bearer ${token}` },
       reconnectDelay: 3000,
       onConnect: () => {
