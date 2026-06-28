@@ -1,0 +1,46 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-xxl;
+  padding-top: $space-section;
+  text-align: center;
+}
+
+.icon {
+  font-size: 64px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.95); }
+}
+
+.title {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+}
+
+.subtitle {
+  color: $color-on-surface-variant;
+  margin-top: $space-xs;
+}
+
+.placarSection {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.placarTitle {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+}

@@ -1,0 +1,48 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $space-base;
+}
+
+.back {
+  color: $color-on-surface-variant;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: $space-xxs;
+  border-radius: $radius-default;
+  &:hover { background: $color-surface-soft; }
+}
+
+.title {
+  font-size: $font-size-headline-md;
+  font-weight: $font-weight-regular;
+  letter-spacing: -1px;
+}
+
+.questionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.divider {
+  height: 1px;
+  background: $color-hairline;
+  margin: $space-sm 0;
+}

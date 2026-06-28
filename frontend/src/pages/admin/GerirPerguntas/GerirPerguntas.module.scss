@@ -1,0 +1,135 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: $space-base;
+}
+
+.title {
+  font-size: $font-size-headline-md;
+  font-weight: $font-weight-regular;
+  color: $color-on-surface;
+  letter-spacing: -1px;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: $space-sm;
+  align-items: end;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.questionRow {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-base;
+  padding: $space-base;
+  border-bottom: 1px solid $color-hairline;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.questionInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxs;
+}
+
+.questionText {
+  font-size: $font-size-body-md;
+  color: $color-on-surface;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.questionMeta {
+  display: flex;
+  gap: $space-sm;
+  font-size: $font-size-label-caps;
+  color: $color-on-surface-variant;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.questionActions {
+  display: flex;
+  gap: $space-xs;
+  flex-shrink: 0;
+}
+
+.empty {
+  text-align: center;
+  padding: $space-xxl;
+  color: $color-on-surface-variant;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-base;
+
+  span {
+    font-size: $font-size-label-caps;
+    color: $color-on-surface-variant;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+.inactive {
+  opacity: 0.5;
+}
+
+.confirmOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba($color-inverse-surface, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-base;
+  z-index: 200;
+}
+
+.confirmModal {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: $space-base;
+}
+
+.confirmTitle {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+}
+
+.confirmText {
+  color: $color-on-surface-variant;
+}
+
+.confirmActions {
+  display: flex;
+  gap: $space-sm;
+  justify-content: flex-end;
+}

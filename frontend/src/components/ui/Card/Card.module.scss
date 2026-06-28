@@ -1,0 +1,16 @@
+.card {
+  background: $color-surface-lowest;
+  border-radius: $radius-xl;
+  border: 1px solid $color-hairline;
+  padding: $space-xl;
+
+  &--soft {
+    background: $color-surface-soft;
+    border: none;
+  }
+
+  &--flat {
+    border: none;
+    padding: 0;
+  }
+}

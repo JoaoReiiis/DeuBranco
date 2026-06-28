@@ -1,0 +1,42 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-xs $space-base;
+  border-radius: $radius-default;
+  background: $color-surface-soft;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-full;
+  background: $color-primary-action;
+  color: $color-on-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-label-caps;
+  flex-shrink: 0;
+}
+
+.name {
+  flex: 1;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+}
+
+.host {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-primary-action;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

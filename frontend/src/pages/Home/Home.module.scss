@@ -1,0 +1,131 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxl;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.greeting {
+  font-size: $font-size-display-lg;
+  font-weight: $font-weight-regular;
+  color: $color-on-surface;
+  letter-spacing: -1.3px;
+  line-height: 1.1;
+
+  @media (max-width: 480px) {
+    font-size: 36px;
+    letter-spacing: -0.5px;
+  }
+}
+
+.subtitle {
+  font-size: $font-size-body-md;
+  color: $color-on-surface-variant;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-base;
+}
+
+.sectionTitle {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-base;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.actionCard {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  padding: $space-lg;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-color: $color-primary-action;
+  }
+}
+
+.actionIcon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.actionTitle {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+}
+
+.actionDesc {
+  font-size: $font-size-label-caps;
+  color: $color-on-surface-variant;
+  font-weight: $font-weight-semibold;
+}
+
+.pinModal {
+  display: flex;
+  flex-direction: column;
+  gap: $space-base;
+
+  p {
+    font-size: $font-size-body-md;
+    color: $color-on-surface-variant;
+  }
+
+  .actions {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba($color-inverse-surface, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-base;
+  z-index: 200;
+}
+
+.modal {
+  width: 100%;
+  max-width: 400px;
+}
+
+.modalTitle {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+  margin-bottom: $space-base;
+}
+
+.modalActions {
+  display: flex;
+  gap: $space-sm;
+  margin-top: $space-base;
+
+  button {
+    flex: 1;
+  }
+}

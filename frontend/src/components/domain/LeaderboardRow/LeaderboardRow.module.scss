@@ -1,0 +1,55 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: $space-base;
+  background: $color-surface-soft;
+  border-radius: $radius-default;
+  padding: $space-sm $space-base;
+
+  &--top1 {
+    background: rgba(#FFD700, 0.12);
+    border: 1px solid rgba(#FFD700, 0.3);
+  }
+
+  &--top2 {
+    background: rgba(#C0C0C0, 0.12);
+    border: 1px solid rgba(#C0C0C0, 0.3);
+  }
+
+  &--top3 {
+    background: rgba(#CD7F32, 0.12);
+    border: 1px solid rgba(#CD7F32, 0.3);
+  }
+}
+
+.rank {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-semibold;
+  font-variant-numeric: tabular-nums;
+  color: $color-on-surface-variant;
+  width: 32px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.name {
+  flex: 1;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.score {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-bold;
+  font-variant-numeric: tabular-nums;
+  color: $color-primary-action;
+  flex-shrink: 0;
+}
+
+.medal {
+  font-size: 18px;
+  flex-shrink: 0;
+}

@@ -1,0 +1,45 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-base;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
+
+.discipline {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-primary-action;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.counter {
+  font-size: $font-size-label-caps;
+  color: $color-on-surface-variant;
+  font-weight: $font-weight-semibold;
+}
+
+.enunciado {
+  font-size: $font-size-body-md;
+  line-height: $line-height-body;
+  color: $color-on-surface;
+  white-space: pre-wrap;
+}
+
+.images {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+
+  img {
+    border-radius: $radius-default;
+    max-height: 280px;
+    object-fit: contain;
+    background: $color-surface-soft;
+  }
+}
