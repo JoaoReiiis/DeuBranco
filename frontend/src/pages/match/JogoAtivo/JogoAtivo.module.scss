@@ -1,39 +1,121 @@
+// ─── Page ─────────────────────────────────────────────────────────────────────
 .page {
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  gap: $space-lg;
-  max-width: 640px;
+  background: $color-surface-lowest;
+}
+
+// ─── Game header ──────────────────────────────────────────────────────────────
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-base $space-xl;
+  border-bottom: 1px solid $color-hairline;
+  background: $color-surface-lowest;
+}
+
+.closeBtn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  color: $color-on-surface-variant;
+  cursor: pointer;
+  border-radius: $radius-full;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+
+  &:hover { background: $color-surface-low; }
+}
+
+.pts {
+  font-size: 15px;
+  font-weight: $font-weight-bold;
+  color: $color-on-surface;
+  font-variant-numeric: tabular-nums;
+  min-width: 60px;
+  text-align: right;
+}
+
+// ─── Body ─────────────────────────────────────────────────────────────────────
+.body {
+  flex: 1;
+  max-width: 720px;
   margin: 0 auto;
+  width: 100%;
+  padding: $space-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
 }
 
-.timer {
-  position: sticky;
-  top: 56px;
-  background: $color-surface;
-  padding: $space-sm 0;
-  z-index: 10;
-}
-
-.options {
+// ─── Progress ─────────────────────────────────────────────────────────────────
+.progress {
   display: flex;
   flex-direction: column;
   gap: $space-sm;
 }
 
-.answered {
+.questionLabel {
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.timer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.timerNum {
+  font-size: 28px;
+  font-weight: $font-weight-bold;
+  color: $color-primary-action;
+  font-variant-numeric: tabular-nums;
+
+  &--urgent {
+    color: $color-semantic-down;
+  }
+}
+
+// ─── Question ─────────────────────────────────────────────────────────────────
+.questionText {
+  font-size: 20px;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+  line-height: 1.5;
+}
+
+// ─── Options 2×2 grid ─────────────────────────────────────────────────────────
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-sm;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.answeredMsg {
   text-align: center;
-  padding: $space-sm;
-  border-radius: $radius-default;
+  padding: $space-base;
+  border-radius: $radius-lg;
   background: rgba($color-semantic-up, 0.1);
   color: $color-semantic-up;
   font-weight: $font-weight-semibold;
-  font-size: $font-size-label-caps;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 15px;
 }
 
-.waiting {
+.loading {
+  padding: $space-xl;
   text-align: center;
   color: $color-on-surface-variant;
-  padding: $space-xs;
 }

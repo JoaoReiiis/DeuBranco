@@ -1,8 +1,6 @@
 .page {
-  display: flex;
-  flex-direction: column;
-  gap: $space-xl;
-  max-width: 640px;
+  padding: $space-xxl $space-xl;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -10,6 +8,8 @@
   display: flex;
   align-items: center;
   gap: $space-base;
+  margin-bottom: $space-xxl;
+  max-width: 720px;
 }
 
 .back {
@@ -20,29 +20,35 @@
   font-size: 20px;
   padding: $space-xxs;
   border-radius: $radius-default;
-  &:hover { background: $color-surface-soft; }
+  &:hover { background: $color-surface-container; }
 }
 
 .title {
-  font-size: $font-size-headline-md;
-  font-weight: $font-weight-regular;
-  letter-spacing: -1px;
+  font-size: 32px;
+  font-weight: $font-weight-bold;
+  color: $color-on-surface;
+  letter-spacing: -0.5px;
 }
 
 .questionBlock {
+  max-width: 720px;
   display: flex;
   flex-direction: column;
   gap: $space-sm;
+  margin-bottom: $space-xl;
 }
 
 .options {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: $space-xs;
+
+  @media (max-width: 480px) { grid-template-columns: 1fr; }
 }
 
 .divider {
   height: 1px;
   background: $color-hairline;
   margin: $space-sm 0;
+  max-width: 720px;
 }

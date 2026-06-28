@@ -6,12 +6,12 @@ import { useMatchSocket } from '../../../hooks/useMatchSocket';
 import partidaService from '../../../services/partidaService';
 import type { PartidaEventoResponse, ParticipacaoResponse } from '../../../types/partida';
 import type { Alternativa } from '../../../types/questao';
-import { QuestionCard } from '../../../components/domain/QuestionCard/QuestionCard';
+import { Logo } from '../../../components/ui/Logo/Logo';
 import { QuizOption } from '../../../components/domain/QuizOption/QuizOption';
-import { CountdownTimer } from '../../../components/domain/CountdownTimer/CountdownTimer';
+import { ProgressBar } from '../../../components/ui/ProgressBar/ProgressBar';
 import styles from './JogoAtivo.module.scss';
 
-const LETTERS: Alternativa[] = ['A', 'B', 'C', 'D', 'E'];
+const LETTERS: Alternativa[] = ['A', 'B', 'C', 'D'];
 
 export function JogoAtivo() {
   const { matchId: paramId } = useParams<{ matchId: string }>();
@@ -71,7 +71,7 @@ export function JogoAtivo() {
       });
       match.addAnswer(res);
     } catch {
-      // silently fail — answer recorded locally
+      // silently fail
     }
 
     setTimeout(() => {
@@ -109,35 +109,67 @@ export function JogoAtivo() {
   });
 
   const question = match.questions[currentIndex];
-  if (!question) return <p>Carregando questões...</p>;
+  if (!question) return <p className={styles.loading}>Carregando questões...</p>;
 
   const optionMap: Record<Alternativa, string> = {
-    A: question.opcaoA, B: question.opcaoB, C: question.opcaoC,
-    D: question.opcaoD, E: question.opcaoE,
+    A: question.opcaoA,
+    B: question.opcaoB,
+    C: question.opcaoC,
+    D: question.opcaoD,
+    E: question.opcaoE,
   };
+
+  const totalQuestions = match.questions.length;
+  const progress = ((currentIndex + 1) / totalQuestions) * 100;
 
   return (
     <div className={styles.page}>
-      <div className={styles.timer}>
-        <CountdownTimer remaining={remaining} total={match.tempoDeJogo} />
-      </div>
-      <QuestionCard question={question} current={currentIndex + 1} total={match.questions.length} />
-      {answered ? (
-        <p className={styles.answered}>Resposta registrada ✓</p>
-      ) : (
-        <div className={styles.options}>
-          {LETTERS.map((l) => (
-            <QuizOption
-              key={l}
-              letter={l}
-              text={optionMap[l]}
-              state={selectedAnswer === l ? 'selected' : 'default'}
-              onClick={() => handleAnswer(l)}
-              disabled={answered}
-            />
-          ))}
+      {/* Game top bar */}
+      <header className={styles.header}>
+        <button className={styles.closeBtn} onClick={() => navigate('/')}>✕</button>
+        <Logo variant="horizontal" height={28} />
+        <span className={styles.pts}>
+          {match.leaderboard.length > 0
+            ? `${match.leaderboard.find(p => p.jogador)?.scorePartida ?? 0} pts`
+            : '0 pts'}
+        </span>
+      </header>
+
+      <div className={styles.body}>
+        {/* Progress */}
+        <div className={styles.progress}>
+          <span className={styles.questionLabel}>
+            Question {currentIndex + 1}/{totalQuestions}
+          </span>
+          <ProgressBar value={progress} />
+          <div className={styles.timer}>
+            <span className={`${styles.timerNum} ${remaining <= 5 ? styles['timerNum--urgent'] : ''}`}>
+              {remaining}
+            </span>
+          </div>
         </div>
-      )}
+
+        {/* Question */}
+        <p className={styles.questionText}>{question.enunciado}</p>
+
+        {/* Options — 2×2 grid */}
+        {answered ? (
+          <p className={styles.answeredMsg}>Resposta registrada ✓</p>
+        ) : (
+          <div className={styles.options}>
+            {LETTERS.map((l) => (
+              <QuizOption
+                key={l}
+                letter={l}
+                text={optionMap[l]}
+                state={selectedAnswer === l ? 'selected' : 'default'}
+                onClick={() => handleAnswer(l)}
+                disabled={answered}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

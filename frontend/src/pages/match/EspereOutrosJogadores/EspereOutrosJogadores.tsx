@@ -4,7 +4,8 @@ import { useAuth } from '../../../hooks/useAuth';
 import { useMatch } from '../../../hooks/useMatch';
 import { useMatchSocket } from '../../../hooks/useMatchSocket';
 import type { PartidaEventoResponse, ParticipacaoResponse } from '../../../types/partida';
-import { LeaderboardRow } from '../../../components/domain/LeaderboardRow/LeaderboardRow';
+import { Logo } from '../../../components/ui/Logo/Logo';
+import { Button } from '../../../components/ui/Button/Button';
 import styles from './EspereOutrosJogadores.module.scss';
 
 export function EspereOutrosJogadores() {
@@ -13,6 +14,8 @@ export function EspereOutrosJogadores() {
   const { token } = useAuth();
   const match = useMatch();
   const matchId = Number(paramId);
+
+  const myScore = match.answers.reduce((acc, a) => acc + (a.acertou ? 100 : 0), 0);
 
   const handleStatus = useCallback((e: PartidaEventoResponse) => {
     if (e.tipo === 'PARTIDA_FINALIZADA') {
@@ -46,23 +49,28 @@ export function EspereOutrosJogadores() {
     onResposta: () => {},
   });
 
-  const sorted = [...match.leaderboard].sort((a, b) => b.scorePartida - a.scorePartida);
-
   return (
     <div className={styles.page}>
-      <span className={styles.icon}>⏳</span>
-      <div>
-        <h2 className={styles.title}>Aguardando os outros jogadores...</h2>
-        <p className={styles.subtitle}>Você já respondeu todas as questões</p>
+      {/* Game mini-header */}
+      <header className={styles.header}>
+        <button className={styles.closeBtn} onClick={() => navigate('/')}>✕</button>
+        <Logo variant="horizontal" height={28} />
+        <span className={styles.pts}>{myScore} pts</span>
+      </header>
+
+      {/* Centered content */}
+      <div className={styles.body}>
+        <span className={styles.emoji}>🎉</span>
+        <h1 className={styles.title}>Muito Bem!</h1>
+        <p className={styles.desc}>Aguarde a finalização da partida para ver o resultado final!</p>
+        <p className={styles.desc}>Caso queira revisar ou alterar alguma alternativa, clique no botão abaixo.</p>
+        <Button
+          variant="secondary"
+          onClick={() => navigate(`/match/${matchId}/finalizada`)}
+        >
+          Revisar respostas
+        </Button>
       </div>
-      {sorted.length > 0 && (
-        <div className={styles.placarSection}>
-          <span className={styles.placarTitle}>Placar parcial</span>
-          {sorted.map((p, i) => (
-            <LeaderboardRow key={p.id} rank={i + 1} nome={p.jogador.nome} score={p.scorePartida} />
-          ))}
-        </div>
-      )}
     </div>
   );
 }

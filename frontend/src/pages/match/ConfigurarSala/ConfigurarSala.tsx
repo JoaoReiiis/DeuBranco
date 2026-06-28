@@ -2,14 +2,13 @@ import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import partidaService from '../../../services/partidaService';
 import { DISCIPLINAS, type Disciplina } from '../../../types/questao';
-import { Card } from '../../../components/ui/Card/Card';
-import { Input } from '../../../components/ui/Input/Input';
 import { Button } from '../../../components/ui/Button/Button';
 import styles from './ConfigurarSala.module.scss';
 
+const TEMPOS = [10, 20, 30, 60];
+
 export function ConfigurarSala() {
   const navigate = useNavigate();
-  const [numeroQuestoes, setNumeroQuestoes] = useState(10);
   const [tempoDeJogo, setTempoDeJogo] = useState(30);
   const [disciplinas, setDisciplinas] = useState<Disciplina[]>([]);
   const [loading, setLoading] = useState(false);
@@ -27,14 +26,10 @@ export function ConfigurarSala() {
       setError('Selecione pelo menos uma disciplina.');
       return;
     }
-    if (numeroQuestoes < 5 || numeroQuestoes > 30) {
-      setError('O número de questões deve ser entre 5 e 30.');
-      return;
-    }
     setError('');
     setLoading(true);
     try {
-      const partida = await partidaService.create({ numeroQuestoes, disciplinas, tempoDeJogo });
+      const partida = await partidaService.create({ numeroQuestoes: 10, disciplinas, tempoDeJogo });
       navigate(`/match/${partida.id}/lobby`);
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
@@ -46,53 +41,58 @@ export function ConfigurarSala() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.header}>
-        <button className={styles.back} onClick={() => navigate('/')}>←</button>
-        <h1 className={styles.title}>Criar sala</h1>
-      </div>
-      <Card>
+      <div className={styles.inner}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Criar Arena</h1>
+          <p className={styles.subtitle}>Configure sua sala de estudos competitivos</p>
+        </div>
+
         <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.section}>
-            <span className={styles.sectionTitle}>Disciplinas</span>
-            <div className={styles.disciplinasGrid}>
-              {DISCIPLINAS.map(({ value, label }) => (
+          {/* Time selector */}
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Tempo por questão</h2>
+            <div className={styles.timeGrid}>
+              {TEMPOS.map((t) => (
                 <button
-                  key={value}
+                  key={t}
                   type="button"
-                  className={`${styles.disciplinaChip} ${disciplinas.includes(value) ? styles['disciplinaChip--selected'] : ''}`}
-                  onClick={() => toggleDisciplina(value)}
+                  className={`${styles.timeBtn} ${tempoDeJogo === t ? styles['timeBtn--active'] : ''}`}
+                  onClick={() => setTempoDeJogo(t)}
                 >
-                  {label}
+                  {t}s
                 </button>
               ))}
             </div>
-          </div>
-          <div className={styles.row}>
-            <Input
-              label="Nº de questões (5–30)"
-              type="number"
-              min={5}
-              max={30}
-              value={numeroQuestoes}
-              onChange={(e) => setNumeroQuestoes(Number(e.target.value))}
-              required
-            />
-            <Input
-              label="Tempo por questão (seg)"
-              type="number"
-              min={10}
-              max={300}
-              value={tempoDeJogo}
-              onChange={(e) => setTempoDeJogo(Number(e.target.value))}
-              required
-            />
-          </div>
+          </section>
+
+          {/* Discipline grid */}
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Disciplinas</h2>
+            <div className={styles.disciplinaGrid}>
+              {DISCIPLINAS.map(({ value, label }) => {
+                const checked = disciplinas.includes(value);
+                return (
+                  <label key={value} className={`${styles.disciplinaItem} ${checked ? styles['disciplinaItem--checked'] : ''}`}>
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => toggleDisciplina(value)}
+                      className={styles.disciplinaCheckbox}
+                    />
+                    <span className={styles.disciplinaLabel}>{label}</span>
+                  </label>
+                );
+              })}
+            </div>
+          </section>
+
           {error && <p className={styles.error}>{error}</p>}
+
           <Button type="submit" fullWidth disabled={loading}>
-            {loading ? 'Criando sala...' : 'Criar sala'}
+            {loading ? 'Criando...' : 'Iniciar Arena →'}
           </Button>
         </form>
-      </Card>
+      </div>
     </div>
   );
 }

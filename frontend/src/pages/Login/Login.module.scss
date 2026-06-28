@@ -1,14 +1,29 @@
 .card {
+  background: $color-surface-lowest;
+  border-radius: $radius-xl;
+  border: 1px solid $color-hairline;
+  padding: $space-xxl;
+  width: 100%;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
   gap: $space-lg;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.title {
-  font-size: $font-size-title-md;
-  font-weight: $font-weight-semibold;
-  color: $color-on-surface;
+.logoArea {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-xs;
+  padding-bottom: $space-sm;
+}
+
+.welcomeText {
+  font-size: 15px;
+  color: $color-on-surface-variant;
+  font-weight: $font-weight-regular;
 }
 
 .form {
@@ -22,30 +37,30 @@
   border-radius: $radius-default;
   background: $color-error-container;
   color: $color-on-error-container;
-  font-size: $font-size-body-md;
+  font-size: 14px;
   text-align: center;
 }
 
-.divider {
-  text-align: center;
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-xs;
+  padding-top: $space-xs;
+}
+
+.linkText {
+  font-size: 14px;
   color: $color-on-surface-variant;
-  font-size: $font-size-label-caps;
-  font-weight: $font-weight-semibold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
-.registerLink {
+.link {
   color: $color-primary-action;
+  font-size: 14px;
   font-weight: $font-weight-semibold;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-size: $font-size-body-md;
-  font-family: inherit;
-  text-decoration: underline;
+  text-decoration: none;
 
   &:hover {
-    opacity: 0.8;
+    text-decoration: underline;
   }
 }

@@ -38,7 +38,7 @@ public class Resposta {
     private Long id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_participacao", nullable = false)
     private Participacao participacao;
 

@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import questaoService from '../../../services/questaoService';
 import type { QuestaoResponse } from '../../../types/questao';
 import { DISCIPLINAS, INSTITUICOES } from '../../../types/questao';
-import { Card } from '../../../components/ui/Card/Card';
-import { Select } from '../../../components/ui/Select/Select';
 import { Button } from '../../../components/ui/Button/Button';
-import styles from '../GerirPerguntas/GerirPerguntas.module.scss';
+import styles from './VisualizarPergunta.module.scss';
 
 export function VisualizarPergunta() {
   const navigate = useNavigate();
@@ -31,56 +29,57 @@ export function VisualizarPergunta() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Buscar perguntas</h1>
-        <Button variant="secondary" onClick={() => navigate('/admin/perguntas')}>Voltar</Button>
-      </div>
-      <Card>
-        <form onSubmit={handleSearch} style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
-          <Select
-            label="Disciplina"
-            options={[{ value: '', label: 'Todas' }, ...DISCIPLINAS]}
-            value={disciplina}
-            onChange={(e) => setDisciplina(e.target.value)}
-          />
-          <Select
-            label="Instituição"
-            options={[{ value: '', label: 'Todas' }, ...INSTITUICOES]}
-            value={instituicao}
-            onChange={(e) => setInstituicao(e.target.value)}
-          />
+      <div className={styles.inner}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Buscar Questões</h1>
+          <Button variant="secondary" onClick={() => navigate('/admin/perguntas')}>Voltar</Button>
+        </div>
+
+        <form className={styles.searchForm} onSubmit={handleSearch}>
+          <div className={styles.field}>
+            <label className={styles.label}>Disciplina</label>
+            <select className={styles.select} value={disciplina} onChange={(e) => setDisciplina(e.target.value)}>
+              <option value="">Todas</option>
+              {DISCIPLINAS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
+            </select>
+          </div>
+          <div className={styles.field}>
+            <label className={styles.label}>Instituição</label>
+            <select className={styles.select} value={instituicao} onChange={(e) => setInstituicao(e.target.value)}>
+              <option value="">Todas</option>
+              {INSTITUICOES.map(i => <option key={i.value} value={i.value}>{i.label}</option>)}
+            </select>
+          </div>
           <Button type="submit" disabled={loading}>
             {loading ? 'Buscando...' : 'Pesquisar'}
           </Button>
         </form>
-      </Card>
 
-      {results !== null && (
-        <Card>
-          {results.length === 0 ? (
-            <p className={styles.empty}>Nenhuma pergunta encontrada para os critérios informados.</p>
-          ) : (
-            <div className={styles.list}>
-              {results.map((q) => (
-                <div key={q.id} className={styles.questionRow}>
-                  <div className={styles.questionInfo}>
-                    <p className={styles.questionText}>{q.enunciado}</p>
-                    <div className={styles.questionMeta}>
-                      <span>{q.disciplina.replace('_', ' ')}</span>
-                      <span>·</span>
-                      <span>{q.instituicao}</span>
-                      <span>· Gabarito: <strong>{q.alternativaCorreta}</strong></span>
-                    </div>
-                  </div>
-                  <Button size="sm" variant="secondary" onClick={() => navigate(`/admin/perguntas/${q.id}/editar`)}>
-                    Editar
-                  </Button>
+        {results !== null && (
+          <div className={styles.grid}>
+            {results.length === 0 && (
+              <p className={styles.empty}>Nenhuma questão encontrada.</p>
+            )}
+            {results.map((q) => (
+              <div
+                key={q.id}
+                className={styles.card}
+                onClick={() => navigate(`/admin/perguntas/${q.id}/editar`)}
+              >
+                <div className={styles.cardTags}>
+                  <span className={styles.tag}>{q.disciplina.replace('_', ' ')}</span>
+                  <span className={styles.idText}>ID: {q.id}</span>
                 </div>
-              ))}
-            </div>
-          )}
-        </Card>
-      )}
+                <p className={styles.cardText}>{q.enunciado}</p>
+                <div className={styles.cardMeta}>
+                  <span>{q.instituicao}</span>
+                  <span>Gabarito: <strong>{q.alternativaCorreta}</strong></span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

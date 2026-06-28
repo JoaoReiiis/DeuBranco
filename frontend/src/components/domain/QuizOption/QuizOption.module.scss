@@ -10,8 +10,8 @@ $quiz-colors: (
   width: 100%;
   display: flex;
   align-items: flex-start;
-  gap: $space-base;
-  border-radius: $radius-xl;
+  gap: $space-sm;
+  border-radius: $radius-lg;
   border: 1.5px solid $color-hairline;
   padding: $space-base;
   background: $color-surface-lowest;
@@ -24,6 +24,7 @@ $quiz-colors: (
   color: $color-on-surface;
 
   &:hover:not(:disabled) {
+    border-color: $color-on-surface-variant;
     background: $color-surface-low;
   }
 
@@ -36,36 +37,59 @@ $quiz-colors: (
   flex-shrink: 0;
   width: 32px;
   height: 32px;
-  border-radius: $radius-full;
+  border-radius: $radius-default;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: $font-weight-semibold;
+  font-weight: $font-weight-bold;
   font-size: $font-size-label-caps;
-  border: 1.5px solid currentColor;
+  background: $color-surface-container;
+  color: $color-on-surface-variant;
 }
 
 .text {
   flex: 1;
   padding-top: 4px;
+  font-size: 15px;
+  color: $color-on-surface;
 }
 
-@each $letter, $color in $quiz-colors {
-  .option--selected-#{$letter} {
-    border-color: $color;
-    background: rgba($color, 0.06);
-    color: $color;
-  }
+// Selected state: blue highlight
+.option--selected-A,
+.option--selected-B,
+.option--selected-C,
+.option--selected-D,
+.option--selected-E {
+  border-color: $color-primary-action;
+  background: rgba($color-primary-action, 0.06);
 
+  .letter {
+    background: $color-primary-action;
+    color: $color-on-primary;
+  }
+}
+
+// Correct/wrong for review screen
+@each $letter, $color in $quiz-colors {
   .option--correct-#{$letter} {
     border-color: $color-semantic-up;
     background: rgba($color-semantic-up, 0.08);
     color: $color-semantic-up;
+
+    .letter {
+      background: $color-semantic-up;
+      color: #fff;
+    }
   }
 
   .option--wrong-#{$letter} {
     border-color: $color-semantic-down;
     background: rgba($color-semantic-down, 0.08);
     color: $color-semantic-down;
+
+    .letter {
+      background: $color-semantic-down;
+      color: #fff;
+    }
   }
 }

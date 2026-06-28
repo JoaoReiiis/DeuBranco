@@ -2,23 +2,16 @@ import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import questaoService from '../../../services/questaoService';
 import { DISCIPLINAS, INSTITUICOES, type QuestaoRequest, type Alternativa, type Disciplina, type Instituicao } from '../../../types/questao';
-import { Card } from '../../../components/ui/Card/Card';
-import { Input, TextArea } from '../../../components/ui/Input/Input';
-import { Select } from '../../../components/ui/Select/Select';
 import { Button } from '../../../components/ui/Button/Button';
 import styles from './RegistrarPergunta.module.scss';
 
-const ALTERNATIVAS = [
-  { value: 'A', label: 'A' },
-  { value: 'B', label: 'B' },
-  { value: 'C', label: 'C' },
-  { value: 'D', label: 'D' },
-  { value: 'E', label: 'E' },
-];
+const OPCOES: Alternativa[] = ['A', 'B', 'C', 'D'];
 
 const EMPTY: QuestaoRequest = {
-  enunciado: '', opcaoA: '', opcaoB: '', opcaoC: '', opcaoD: '', opcaoE: '',
-  alternativaCorreta: 'A', disciplina: 'ENEM' as unknown as Disciplina,
+  enunciado: '',
+  opcaoA: '', opcaoB: '', opcaoC: '', opcaoD: '', opcaoE: '',
+  alternativaCorreta: 'A',
+  disciplina: 'ENEM' as unknown as Disciplina,
   instituicao: 'ENEM' as Instituicao,
 };
 
@@ -43,7 +36,7 @@ export function RegistrarPergunta() {
       setForm({ ...EMPTY });
       setTimeout(() => setSuccess(false), 3000);
     } catch {
-      setError('Erro ao salvar a pergunta. Verifique os campos obrigatórios.');
+      setError('Erro ao salvar a questão. Verifique os campos obrigatórios.');
     } finally {
       setLoading(false);
     }
@@ -51,70 +44,105 @@ export function RegistrarPergunta() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.header}>
-        <button className={styles.back} onClick={() => navigate('/admin/perguntas')}>←</button>
-        <h1 className={styles.title}>Nova pergunta</h1>
-      </div>
-      <Card>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <TextArea
-            id="enunciado"
-            label="Enunciado"
-            value={form.enunciado}
-            onChange={(e) => set('enunciado', e.target.value)}
-            placeholder="Digite o enunciado da questão..."
-            required
-          />
-          <div className={styles.section}>
-            <span className={styles.sectionTitle}>Alternativas</span>
-            {(['A', 'B', 'C', 'D', 'E'] as Alternativa[]).map((l) => (
-              <Input
-                key={l}
-                label={`Opção ${l}`}
-                value={form[`opcao${l}` as keyof QuestaoRequest] as string}
-                onChange={(e) => set(`opcao${l}` as keyof QuestaoRequest, e.target.value)}
-                placeholder={`Texto da alternativa ${l}`}
+      <div className={styles.inner}>
+        <div className={styles.formCard}>
+          <div className={styles.cardHeader}>
+            <h1 className={styles.title}>Add New Question</h1>
+            <p className={styles.subtitle}>
+              Contribua com o banco de questões adicionando uma nova questão de múltipla escolha.
+            </p>
+          </div>
+
+          <form className={styles.form} onSubmit={handleSubmit}>
+            {/* Disciplina + Instituição */}
+            <div className={styles.row}>
+              <div className={styles.field}>
+                <label className={styles.label}>Disciplina</label>
+                <select
+                  className={styles.select}
+                  value={form.disciplina}
+                  onChange={(e) => set('disciplina', e.target.value)}
+                  required
+                >
+                  <option value="">Selecionar Categoria</option>
+                  {DISCIPLINAS.map(d => (
+                    <option key={d.value} value={d.value}>{d.label}</option>
+                  ))}
+                </select>
+              </div>
+              <div className={styles.field}>
+                <label className={styles.label}>Instituição</label>
+                <select
+                  className={styles.select}
+                  value={form.instituicao}
+                  onChange={(e) => set('instituicao', e.target.value)}
+                  required
+                >
+                  <option value="">Selecionar instituição</option>
+                  {INSTITUICOES.map(i => (
+                    <option key={i.value} value={i.value}>{i.label}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Enunciado */}
+            <div className={styles.field}>
+              <label className={styles.label}>Enunciado</label>
+              <textarea
+                className={styles.textarea}
+                value={form.enunciado}
+                onChange={(e) => set('enunciado', e.target.value)}
+                placeholder="Adicione o enunciado da questao"
+                rows={4}
                 required
               />
-            ))}
-          </div>
-          <div className={styles.row}>
-            <Select
-              label="Resposta correta"
-              options={ALTERNATIVAS}
-              value={form.alternativaCorreta}
-              onChange={(e) => set('alternativaCorreta', e.target.value)}
-              required
-            />
-            <Select
-              label="Disciplina"
-              options={DISCIPLINAS}
-              value={form.disciplina}
-              onChange={(e) => set('disciplina', e.target.value)}
-              placeholder="Selecione..."
-              required
-            />
-          </div>
-          <Select
-            label="Instituição"
-            options={INSTITUICOES}
-            value={form.instituicao}
-            onChange={(e) => set('instituicao', e.target.value)}
-            placeholder="Selecione..."
-            required
-          />
-          {success && <p className={styles.success}>Pergunta salva com sucesso!</p>}
-          {error && <p className={styles.error}>{error}</p>}
-          <div className={styles.actions}>
-            <Button type="button" variant="secondary" onClick={() => navigate('/admin/perguntas')}>
-              Cancelar
-            </Button>
-            <Button type="submit" disabled={loading}>
-              {loading ? 'Salvando...' : 'Salvar'}
-            </Button>
-          </div>
-        </form>
-      </Card>
+            </div>
+
+            {/* Answers */}
+            <div className={styles.field}>
+              <label className={styles.label}>Answers (Mark the correct one)</label>
+              <div className={styles.answerList}>
+                {OPCOES.map((l) => {
+                  const fieldKey = `opcao${l}` as keyof QuestaoRequest;
+                  const isCorrect = form.alternativaCorreta === l;
+                  return (
+                    <div key={l} className={`${styles.answerRow} ${isCorrect ? styles['answerRow--correct'] : ''}`}>
+                      <span className={styles.answerLetter}>{l}</span>
+                      <input
+                        className={styles.answerInput}
+                        value={form[fieldKey] as string}
+                        onChange={(e) => set(fieldKey, e.target.value)}
+                        placeholder={`Texto da alternativa ${l}...`}
+                      />
+                      <input
+                        type="radio"
+                        name="correta"
+                        checked={isCorrect}
+                        onChange={() => set('alternativaCorreta', l)}
+                        className={styles.answerRadio}
+                      />
+                      {isCorrect && <span className={styles.correctBadge}>Correct Answer</span>}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {success && <p className={styles.success}>Questão salva com sucesso!</p>}
+            {error && <p className={styles.error}>{error}</p>}
+
+            <div className={styles.actions}>
+              <Button type="button" variant="secondary" onClick={() => navigate('/admin/perguntas')}>
+                Cancel
+              </Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? 'Salvando...' : 'Save Question'}
+              </Button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
