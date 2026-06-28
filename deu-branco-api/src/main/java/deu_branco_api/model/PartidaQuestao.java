@@ -45,7 +45,7 @@ public class PartidaQuestao {
     private Partida partida;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_questao", referencedColumnName = "id_pergunta", nullable = false)
     private Questao questao;
 
