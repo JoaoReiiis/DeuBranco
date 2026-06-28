@@ -18,6 +18,7 @@ import { EspereOutrosJogadores } from './pages/match/EspereOutrosJogadores/Esper
 import { PodioFinal } from './pages/match/PodioFinal/PodioFinal';
 import { PartidaFinalizada } from './pages/match/PartidaFinalizada/PartidaFinalizada';
 import { HistoricoPartidas } from './pages/match/HistoricoPartidas/HistoricoPartidas';
+import { Perfil } from './pages/Perfil/Perfil';
 
 export function App() {
   return (
@@ -37,6 +38,7 @@ export function App() {
             <Route element={<AuthGuard />}>
               <Route element={<AppShell />}>
                 <Route path="/" element={<Home />} />
+                <Route path="/perfil" element={<Perfil />} />
                 <Route path="/historico" element={<HistoricoPartidas />} />
                 <Route path="/match/configurar" element={<ConfigurarSala />} />
                 <Route path="/match/:matchId/podio" element={<PodioFinal />} />

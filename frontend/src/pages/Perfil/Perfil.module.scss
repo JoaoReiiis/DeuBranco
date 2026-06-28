@@ -1,0 +1,153 @@
+.page {
+  padding: $space-xxl $space-xl;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.inner {
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: $font-weight-bold;
+  color: $color-on-surface;
+  letter-spacing: -0.5px;
+}
+
+.card {
+  background: $color-surface-lowest;
+  border: 1px solid $color-hairline;
+  border-radius: $radius-xl;
+  padding: $space-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+// ─── Avatar row ──────────────────────────────────────────────────────────────
+.avatarRow {
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: $radius-full;
+  background: $color-primary-action;
+  color: $color-on-primary;
+  font-size: 24px;
+  font-weight: $font-weight-bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxs;
+}
+
+.userName {
+  font-size: 20px;
+  font-weight: $font-weight-bold;
+  color: $color-on-surface;
+}
+
+.userEmail {
+  font-size: 14px;
+  color: $color-on-surface-variant;
+}
+
+.roleBadge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px $space-sm;
+  border-radius: $radius-full;
+  font-size: 12px;
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.04em;
+
+  &--admin {
+    background: #b91c1c;
+    color: #fff;
+  }
+
+  &--user {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+  }
+}
+
+// ─── Fields ──────────────────────────────────────────────────────────────────
+.divider {
+  height: 1px;
+  background: $color-hairline;
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: $space-base;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-base;
+  padding: $space-sm 0;
+  border-bottom: 1px solid $color-hairline;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+}
+
+.label {
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.value {
+  font-size: 15px;
+  color: $color-on-surface;
+  text-align: right;
+}
+
+// ─── Logout button ────────────────────────────────────────────────────────────
+.logoutBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-sm $space-lg;
+  border-radius: $radius-full;
+  border: 1.5px solid $color-semantic-down;
+  background: transparent;
+  color: $color-semantic-down;
+  font-family: $font-family;
+  font-size: 15px;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  width: fit-content;
+
+  &:hover {
+    background: rgba($color-semantic-down, 0.06);
+  }
+}

@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { Logo } from '../../ui/Logo/Logo';
 import styles from './AppShell.module.scss';
@@ -43,8 +43,22 @@ function IconTrophy() {
   );
 }
 
+function IconLogout() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5-5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" />
+    </svg>
+  );
+}
+
 export function AppShell() {
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, logout } = useAuth();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate('/login', { replace: true });
+  }
 
   return (
     <div className={styles.shell}>
@@ -88,7 +102,7 @@ export function AppShell() {
             )}
           </nav>
 
-          <div className={styles.userBadge}>
+          <div className={styles.userActions}>
             {isAdmin ? (
               <span className={`${styles.badge} ${styles['badge--admin']}`}>
                 <IconTrophy />
@@ -100,6 +114,14 @@ export function AppShell() {
                 {user?.nome?.split(' ')[0] ?? 'Jogador'}
               </span>
             )}
+            <button
+              className={styles.logoutBtn}
+              onClick={handleLogout}
+              title="Sair da conta"
+            >
+              <IconLogout />
+              <span>Sair</span>
+            </button>
           </div>
         </div>
       </header>

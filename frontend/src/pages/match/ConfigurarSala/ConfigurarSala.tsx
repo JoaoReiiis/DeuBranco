@@ -6,10 +6,12 @@ import { Button } from '../../../components/ui/Button/Button';
 import styles from './ConfigurarSala.module.scss';
 
 const TEMPOS = [10, 20, 30, 60];
+const QTDE_QUESTOES = [5, 10, 15, 20];
 
 export function ConfigurarSala() {
   const navigate = useNavigate();
   const [tempoDeJogo, setTempoDeJogo] = useState(30);
+  const [numeroQuestoes, setNumeroQuestoes] = useState(10);
   const [disciplinas, setDisciplinas] = useState<Disciplina[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -29,7 +31,7 @@ export function ConfigurarSala() {
     setError('');
     setLoading(true);
     try {
-      const partida = await partidaService.create({ numeroQuestoes: 10, disciplinas, tempoDeJogo });
+      const partida = await partidaService.create({ numeroQuestoes, disciplinas, tempoDeJogo });
       navigate(`/match/${partida.id}/lobby`);
     } catch (err: unknown) {
       const msg = (err as { response?: { data?: { message?: string } } })?.response?.data?.message;
@@ -48,6 +50,23 @@ export function ConfigurarSala() {
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit}>
+          {/* Número de questões */}
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Número de questões</h2>
+            <div className={styles.timeGrid}>
+              {QTDE_QUESTOES.map((q) => (
+                <button
+                  key={q}
+                  type="button"
+                  className={`${styles.timeBtn} ${numeroQuestoes === q ? styles['timeBtn--active'] : ''}`}
+                  onClick={() => setNumeroQuestoes(q)}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+          </section>
+
           {/* Time selector */}
           <section className={styles.section}>
             <h2 className={styles.sectionTitle}>Tempo por questão</h2>
