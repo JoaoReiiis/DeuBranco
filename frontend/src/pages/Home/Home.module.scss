@@ -34,15 +34,16 @@
 
 .card--create {
   cursor: pointer;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  position: relative;
+  padding: 0;
+  overflow: hidden;
+  transition: box-shadow 0.18s ease;
 
   &:hover {
-    border-color: $color-primary-action;
-    box-shadow: 0 4px 16px rgba($color-primary-action, 0.12);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
   }
 }
 
+// ─── Join card internals ──────────────────────────────────────────────────────
 .cardTitle {
   font-size: 22px;
   font-weight: $font-weight-bold;
@@ -66,11 +67,76 @@
   }
 }
 
-.createArrow {
-  font-size: 32px;
-  color: $color-primary-action;
+// ─── Create card internals ────────────────────────────────────────────────────
+.createImgWrap {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  flex-shrink: 0;
+}
+
+.createImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+}
+
+.createImgFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, $color-surface-lowest);
+  pointer-events: none;
+}
+
+.createBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-sm;
+  padding: $space-base $space-xl $space-xl;
+}
+
+.createTitle {
+  font-size: 40px;
   font-weight: $font-weight-bold;
-  margin-top: auto;
+  color: $color-on-surface;
+  letter-spacing: -0.5px;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.createDesc {
+  font-size: 15px;
+  color: $color-on-surface-variant;
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: $space-sm;
+}
+
+.createBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-sm;
+  width: 100%;
+  padding: $space-base $space-xl;
+  border-radius: $radius-full;
+  border: 1.5px solid $color-hairline;
+  background: $color-surface-lowest;
+  color: $color-on-surface;
+  font-size: 16px;
+  font-weight: $font-weight-bold;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: border-color 0.15s ease;
+
+  .card--create:hover & {
+    border-color: $color-on-surface-variant;
+  }
 }
 
 // ─── Stats ────────────────────────────────────────────────────────────────────

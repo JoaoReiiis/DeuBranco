@@ -4,6 +4,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { Input } from '../../components/ui/Input/Input';
 import { Button } from '../../components/ui/Button/Button';
 import partidaService from '../../services/partidaService';
+import classroomImg from '../../assets/classroom.png';
 import styles from './Home.module.scss';
 
 export function Home() {
@@ -55,11 +56,22 @@ export function Home() {
 
           {/* Criar sala */}
           <div className={`${styles.card} ${styles['card--create']}`} onClick={() => navigate('/match/configurar')}>
-            <h2 className={styles.cardTitle}>Criar Arena</h2>
-            <p className={styles.cardDesc}>
-              Configure e inicie uma nova partida para desafiar outros jogadores.
-            </p>
-            <div className={styles.createArrow}>→</div>
+            <div className={styles.createImgWrap}>
+              <img src={classroomImg} alt="" className={styles.createImg} draggable={false} />
+              <div className={styles.createImgFade} />
+            </div>
+            <div className={styles.createBody}>
+              <h2 className={styles.createTitle}>Criar uma sala</h2>
+              <p className={styles.createDesc}>Inicie uma nova sala para convidar seus amigos</p>
+              <div className={styles.createBtn}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                  <circle cx="12" cy="12" r="9" />
+                  <line x1="12" y1="8" x2="12" y2="16" />
+                  <line x1="8" y1="12" x2="16" y2="12" />
+                </svg>
+                Host Session
+              </div>
+            </div>
           </div>
         </div>
 
