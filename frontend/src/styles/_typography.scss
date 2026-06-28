@@ -1,0 +1,42 @@
+@use "tokens" as *;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+.text-display-lg {
+  font-size: $font-size-display-lg;
+  font-weight: $font-weight-regular;
+  line-height: 52px;
+  letter-spacing: -1.3px;
+}
+
+.text-headline-md {
+  font-size: $font-size-headline-md;
+  font-weight: $font-weight-regular;
+  line-height: 48px;
+  letter-spacing: -1px;
+}
+
+.text-title-md {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-semibold;
+  line-height: 24px;
+}
+
+.text-body-md {
+  font-size: $font-size-body-md;
+  font-weight: $font-weight-regular;
+  line-height: $line-height-body;
+}
+
+.text-body-strong {
+  font-size: $font-size-body-md;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-body;
+}
+
+.text-label-caps {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-label;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

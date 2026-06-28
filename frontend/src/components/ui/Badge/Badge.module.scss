@@ -1,0 +1,40 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: $radius-full;
+  padding: $space-xxs $space-sm;
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &--aguardando {
+    background: $color-secondary-container;
+    color: $color-on-secondary-container;
+  }
+
+  &--andamento {
+    background: rgba($color-primary-action, 0.12);
+    color: $color-primary-action;
+  }
+
+  &--finalizada {
+    background: rgba($color-semantic-up, 0.12);
+    color: $color-semantic-up;
+  }
+
+  &--cancelada {
+    background: $color-error-container;
+    color: $color-on-error-container;
+  }
+
+  &--admin {
+    background: rgba($color-primary-action, 0.12);
+    color: $color-primary-action;
+  }
+
+  &--jogador {
+    background: $color-surface-container;
+    color: $color-on-surface-variant;
+  }
+}

@@ -1,0 +1,75 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.pinCard {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.pinLabel {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.pin {
+  font-size: 52px;
+  font-weight: $font-weight-bold;
+  color: $color-primary-action;
+  letter-spacing: 8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pinHint {
+  font-size: $font-size-body-md;
+  color: $color-on-surface-variant;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  span:last-child {
+    color: $color-primary-action;
+  }
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.waiting {
+  text-align: center;
+  color: $color-on-surface-variant;
+  font-size: $font-size-body-md;
+  padding: $space-base 0;
+}
+
+.cancelHint {
+  font-size: $font-size-label-caps;
+  color: $color-on-surface-variant;
+  text-align: center;
+}

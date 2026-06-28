@@ -1,0 +1,68 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $space-base;
+}
+
+.back {
+  color: $color-on-surface-variant;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: $space-xxs;
+  border-radius: $radius-default;
+  &:hover { background: $color-surface-soft; }
+}
+
+.title {
+  font-size: $font-size-headline-md;
+  font-weight: $font-weight-regular;
+  letter-spacing: -1px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: $space-base;
+  padding: $space-base;
+}
+
+.pin {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-semibold;
+  font-variant-numeric: tabular-nums;
+  color: $color-on-surface;
+  flex: 1;
+}
+
+.date {
+  font-size: $font-size-label-caps;
+  color: $color-on-surface-variant;
+  font-weight: $font-weight-semibold;
+}
+
+.score {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-bold;
+  color: $color-primary-action;
+  font-variant-numeric: tabular-nums;
+}
+
+.empty {
+  text-align: center;
+  padding: $space-xxl;
+  color: $color-on-surface-variant;
+}

@@ -1,0 +1,39 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.timer {
+  position: sticky;
+  top: 56px;
+  background: $color-surface;
+  padding: $space-sm 0;
+  z-index: 10;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.answered {
+  text-align: center;
+  padding: $space-sm;
+  border-radius: $radius-default;
+  background: rgba($color-semantic-up, 0.1);
+  color: $color-semantic-up;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-label-caps;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.waiting {
+  text-align: center;
+  color: $color-on-surface-variant;
+  padding: $space-xs;
+}

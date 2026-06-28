@@ -1,0 +1,94 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $space-base;
+}
+
+.back {
+  color: $color-on-surface-variant;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: $space-xxs;
+  border-radius: $radius-default;
+  &:hover { background: $color-surface-soft; }
+}
+
+.title {
+  font-size: $font-size-headline-md;
+  font-weight: $font-weight-regular;
+  letter-spacing: -1px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.sectionTitle {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.disciplinasGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: $space-xs;
+}
+
+.disciplinaChip {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+  padding: $space-xs $space-sm;
+  border-radius: $radius-full;
+  border: 1.5px solid $color-hairline;
+  cursor: pointer;
+  background: $color-surface-lowest;
+  font-family: $font-family;
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+  transition: border-color 0.12s, background 0.12s;
+
+  &--selected {
+    border-color: $color-primary-action;
+    background: rgba($color-primary-action, 0.08);
+    color: $color-primary-action;
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-base;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.error {
+  padding: $space-sm;
+  border-radius: $radius-default;
+  background: $color-error-container;
+  color: $color-on-error-container;
+  font-size: $font-size-body-md;
+}

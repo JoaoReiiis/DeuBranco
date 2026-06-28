@@ -1,0 +1,53 @@
+.shell {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: $color-surface-lowest;
+  border-bottom: 1px solid $color-hairline;
+  padding: 0 $space-base;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-base;
+}
+
+.brand {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-bold;
+  color: $color-primary-action;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+}
+
+.userName {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.main {
+  flex: 1;
+  padding: $space-xl $space-base;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+
+  @media (min-width: 640px) {
+    padding: $space-xxl $space-xl;
+  }
+}

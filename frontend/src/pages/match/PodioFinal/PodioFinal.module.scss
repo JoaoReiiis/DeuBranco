@@ -1,0 +1,43 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxl;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+}
+
+.trophy {
+  font-size: 64px;
+  margin-bottom: $space-base;
+}
+
+.title {
+  font-size: $font-size-headline-md;
+  font-weight: $font-weight-regular;
+  letter-spacing: -1px;
+  color: $color-on-surface;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}
+
+.sectionTitle {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+}

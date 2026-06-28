@@ -1,0 +1,83 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: $space-base;
+}
+
+.back {
+  color: $color-on-surface-variant;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: $space-xxs;
+  border-radius: $radius-default;
+
+  &:hover { background: $color-surface-soft; }
+}
+
+.title {
+  font-size: $font-size-headline-md;
+  font-weight: $font-weight-regular;
+  color: $color-on-surface;
+  letter-spacing: -1px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $space-base;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-base;
+}
+
+.sectionTitle {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.success {
+  padding: $space-sm $space-base;
+  border-radius: $radius-default;
+  background: rgba($color-semantic-up, 0.12);
+  color: $color-semantic-up;
+  font-size: $font-size-body-md;
+  font-weight: $font-weight-semibold;
+}
+
+.error {
+  padding: $space-sm $space-base;
+  border-radius: $radius-default;
+  background: $color-error-container;
+  color: $color-on-error-container;
+  font-size: $font-size-body-md;
+}
+
+.actions {
+  display: flex;
+  gap: $space-sm;
+  justify-content: flex-end;
+}

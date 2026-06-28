@@ -1,0 +1,55 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.label {
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.input {
+  width: 100%;
+  border-radius: $radius-md;
+  border: 1px solid $color-hairline;
+  padding: $space-sm $space-base;
+  font-family: $font-family;
+  font-size: $font-size-body-md;
+  color: $color-on-surface;
+  background: $color-surface-lowest;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &::placeholder {
+    color: $color-outline;
+  }
+
+  &:focus {
+    border: 2px solid $color-primary-action;
+    padding: calc(#{$space-sm} - 1px) calc(#{$space-base} - 1px);
+  }
+
+  &--error {
+    border-color: $color-error;
+  }
+
+  &:disabled {
+    background: $color-surface-soft;
+    color: $color-on-surface-variant;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  font-size: $font-size-label-caps;
+  color: $color-error;
+}
+
+textarea.input {
+  resize: vertical;
+  min-height: 100px;
+}

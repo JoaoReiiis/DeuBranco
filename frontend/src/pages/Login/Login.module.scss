@@ -1,0 +1,51 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.title {
+  font-size: $font-size-title-md;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-base;
+}
+
+.error {
+  padding: $space-sm $space-base;
+  border-radius: $radius-default;
+  background: $color-error-container;
+  color: $color-on-error-container;
+  font-size: $font-size-body-md;
+  text-align: center;
+}
+
+.divider {
+  text-align: center;
+  color: $color-on-surface-variant;
+  font-size: $font-size-label-caps;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.registerLink {
+  color: $color-primary-action;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: $font-size-body-md;
+  font-family: inherit;
+  text-decoration: underline;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
