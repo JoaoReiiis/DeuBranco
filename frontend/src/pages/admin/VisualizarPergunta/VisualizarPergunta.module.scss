@@ -1,0 +1,136 @@
+.page {
+  padding: $space-xxl $space-xl;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxl;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-base;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: $font-weight-bold;
+  color: $color-on-surface;
+  letter-spacing: -0.5px;
+}
+
+.searchForm {
+  display: flex;
+  gap: $space-base;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  background: $color-surface-lowest;
+  border: 1px solid $color-hairline;
+  border-radius: $radius-xl;
+  padding: $space-lg;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  min-width: 180px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+}
+
+.select {
+  appearance: none;
+  background: $color-surface-lowest url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%23888'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 12px center;
+  border: 1.5px solid $color-hairline;
+  border-radius: $radius-md;
+  padding: $space-sm $space-xl $space-sm $space-base;
+  font-family: $font-family;
+  font-size: 14px;
+  color: $color-on-surface;
+  cursor: pointer;
+  outline: none;
+  &:focus { border-color: $color-primary-action; }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-base;
+
+  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 540px) { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: $color-surface-lowest;
+  border: 1px solid $color-hairline;
+  border-radius: $radius-xl;
+  padding: $space-lg;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  transition: border-color 0.15s ease;
+
+  &:hover { border-color: $color-primary-action; }
+}
+
+.cardTags {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px $space-sm;
+  border-radius: $radius-full;
+  background: rgba($color-primary-action, 0.1);
+  color: $color-primary-action;
+}
+
+.idText {
+  font-size: 12px;
+  color: $color-on-surface-variant;
+  font-variant-numeric: tabular-nums;
+}
+
+.cardText {
+  font-size: 14px;
+  color: $color-on-surface;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.cardMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: $color-on-surface-variant;
+  padding-top: $space-xs;
+  border-top: 1px solid $color-hairline;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: $space-xxl;
+  color: $color-on-surface-variant;
+}

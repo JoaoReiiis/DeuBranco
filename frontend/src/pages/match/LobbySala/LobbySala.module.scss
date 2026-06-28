@@ -1,75 +1,206 @@
+// ─── Page ──────────────────────────────────────────────────────────────────────
 .page {
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  gap: $space-xl;
-  max-width: 560px;
-  margin: 0 auto;
+  background: $color-surface-low;
 }
 
+// ─── Header ───────────────────────────────────────────────────────────────────
+.header {
+  background: $color-surface-lowest;
+  border-bottom: 1px solid $color-hairline;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.headerInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $space-xl;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+}
+
+.logoBox {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  background: $color-surface-lowest;
+  border: 1px solid $color-hairline;
+  border-radius: $radius-md;
+  padding: $space-xs $space-sm;
+  text-decoration: none;
+}
+
+.hostBadge {
+  font-size: 12px;
+  font-weight: $font-weight-bold;
+  color: $color-semantic-up;
+  background: rgba($color-semantic-up, 0.1);
+  border: 1px solid rgba($color-semantic-up, 0.3);
+  border-radius: $radius-full;
+  padding: 4px $space-sm;
+  letter-spacing: 0.05em;
+}
+
+.headerRight {
+  margin-left: auto;
+}
+
+.cancelBtn {
+  background: #b91c1c;
+  color: #fff;
+  border: none;
+  border-radius: $radius-full;
+  padding: $space-xs $space-base;
+  font-size: 13px;
+  font-weight: $font-weight-bold;
+  font-family: $font-family;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+
+  &:hover { opacity: 0.88; }
+}
+
+.waitingLabel {
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface-variant;
+  letter-spacing: 0.05em;
+}
+
+// ─── Body ─────────────────────────────────────────────────────────────────────
+.body {
+  flex: 1;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  padding: $space-xxl $space-xl;
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxl;
+}
+
+// ─── PIN ──────────────────────────────────────────────────────────────────────
 .pinCard {
+  background: $color-surface-lowest;
+  border: 1px solid $color-hairline;
+  border-radius: $radius-xl;
+  padding: $space-xl;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: $space-xs;
+  align-items: center;
+  gap: $space-base;
 }
 
 .pinLabel {
-  font-size: $font-size-label-caps;
+  font-size: 13px;
   font-weight: $font-weight-semibold;
   color: $color-on-surface-variant;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.08em;
 }
 
-.pin {
-  font-size: 52px;
+.pinDigits {
+  display: flex;
+  gap: $space-sm;
+  justify-content: center;
+}
+
+.pinDigit {
+  font-size: 40px;
   font-weight: $font-weight-bold;
-  color: $color-primary-action;
-  letter-spacing: 8px;
+  color: $color-on-surface;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
+  min-width: 36px;
+  text-align: center;
 }
 
 .pinHint {
-  font-size: $font-size-body-md;
+  font-size: 14px;
   color: $color-on-surface-variant;
 }
 
-.section {
-  display: flex;
-  flex-direction: column;
+// ─── Avatar grid ──────────────────────────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
   gap: $space-sm;
-}
 
-.sectionTitle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: $font-size-label-caps;
-  font-weight: $font-weight-semibold;
-  color: $color-on-surface-variant;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-
-  span:last-child {
-    color: $color-primary-action;
+  @media (max-width: 640px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-.actions {
+.slot {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: $radius-md;
+  border: 1.5px dashed $color-hairline;
+  background: $color-surface-lowest;
+  font-size: 12px;
+
+  &--filled {
+    border-style: solid;
+    border-color: $color-outline-variant;
+  }
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-full;
+  background: $color-primary-action;
+  color: $color-on-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: $font-weight-bold;
+}
+
+.slotName {
+  font-size: 11px;
+  font-weight: $font-weight-semibold;
+  color: $color-on-surface;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hostTag {
+  font-size: 10px;
+  color: $color-primary-action;
+  font-weight: $font-weight-semibold;
+}
+
+.openLabel {
+  font-size: 11px;
+  color: $color-outline;
+  font-weight: $font-weight-semibold;
+}
+
+// ─── Start area ───────────────────────────────────────────────────────────────
+.startArea {
   display: flex;
   flex-direction: column;
   gap: $space-sm;
 }
 
-.waiting {
+.waitHint {
   text-align: center;
+  font-size: 14px;
   color: $color-on-surface-variant;
-  font-size: $font-size-body-md;
-  padding: $space-base 0;
-}
-
-.cancelHint {
-  font-size: $font-size-label-caps;
-  color: $color-on-surface-variant;
-  text-align: center;
 }

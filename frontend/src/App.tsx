@@ -33,15 +33,12 @@ export function App() {
               </Route>
             </Route>
 
-            {/* Authenticated */}
+            {/* Authenticated — standard nav */}
             <Route element={<AuthGuard />}>
               <Route element={<AppShell />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/historico" element={<HistoricoPartidas />} />
                 <Route path="/match/configurar" element={<ConfigurarSala />} />
-                <Route path="/match/:matchId/lobby" element={<LobbySala />} />
-                <Route path="/match/:matchId/jogo" element={<JogoAtivo />} />
-                <Route path="/match/:matchId/espere" element={<EspereOutrosJogadores />} />
                 <Route path="/match/:matchId/podio" element={<PodioFinal />} />
                 <Route path="/match/:matchId/finalizada" element={<PartidaFinalizada />} />
 
@@ -53,6 +50,11 @@ export function App() {
                   <Route path="/admin/perguntas/:id/editar" element={<EditarPergunta />} />
                 </Route>
               </Route>
+
+              {/* Match flow — dedicated game headers */}
+              <Route path="/match/:matchId/lobby" element={<LobbySala />} />
+              <Route path="/match/:matchId/jogo" element={<JogoAtivo />} />
+              <Route path="/match/:matchId/espere" element={<EspereOutrosJogadores />} />
             </Route>
 
             <Route path="*" element={<Navigate to="/" replace />} />

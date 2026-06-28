@@ -1,14 +1,20 @@
 .card {
+  background: $color-surface-lowest;
+  border-radius: $radius-xl;
+  border: 1px solid $color-hairline;
+  padding: $space-xxl;
+  width: 100%;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
   gap: $space-lg;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.title {
-  font-size: $font-size-title-md;
-  font-weight: $font-weight-semibold;
-  color: $color-on-surface;
-  text-align: center;
+.logoArea {
+  display: flex;
+  justify-content: center;
+  padding-bottom: $space-xs;
 }
 
 .form {
@@ -22,16 +28,22 @@
   border-radius: $radius-default;
   background: $color-error-container;
   color: $color-on-error-container;
-  font-size: $font-size-body-md;
+  font-size: 14px;
   text-align: center;
 }
 
-.success {
-  padding: $space-sm $space-base;
-  border-radius: $radius-default;
-  background: rgba($color-semantic-up, 0.12);
-  color: $color-semantic-up;
-  font-size: $font-size-body-md;
+.linkText {
   text-align: center;
+  font-size: 14px;
+  color: $color-on-surface-variant;
+}
+
+.link {
+  color: $color-primary-action;
   font-weight: $font-weight-semibold;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }

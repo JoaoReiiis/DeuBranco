@@ -1,37 +1,8 @@
 .page {
   min-height: 100dvh;
+  background: $color-surface-low;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: $space-base;
-  background: $color-surface;
-}
-
-.container {
-  width: 100%;
-  max-width: 420px;
-  display: flex;
-  flex-direction: column;
-  gap: $space-xl;
-}
-
-.logo {
-  text-align: center;
-
-  h1 {
-    font-size: $font-size-display-lg;
-    font-weight: $font-weight-bold;
-    color: $color-primary-action;
-    letter-spacing: -1.3px;
-    line-height: 1;
-  }
-
-  p {
-    font-size: $font-size-label-caps;
-    color: $color-on-surface-variant;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: $font-weight-semibold;
-    margin-top: $space-xs;
-  }
+  padding: $space-xl $space-base;
 }

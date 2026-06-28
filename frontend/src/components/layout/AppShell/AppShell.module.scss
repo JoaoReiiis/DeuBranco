@@ -4,50 +4,136 @@
   flex-direction: column;
 }
 
-.nav {
+// ─── Header ───────────────────────────────────────────────────────────────────
+.header {
   position: sticky;
   top: 0;
   z-index: 100;
   background: $color-surface-lowest;
   border-bottom: 1px solid $color-hairline;
-  padding: 0 $space-base;
-  height: 56px;
+}
+
+.headerInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $space-xl;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: $space-base;
+  gap: $space-xl;
 }
 
-.brand {
-  font-size: $font-size-title-md;
-  font-weight: $font-weight-bold;
-  color: $color-primary-action;
-  text-decoration: none;
-  letter-spacing: -0.5px;
-}
-
-.navRight {
+// ─── Logo box ─────────────────────────────────────────────────────────────────
+.logoBox {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: $space-sm;
+  justify-content: center;
+  background: $color-surface-lowest;
+  border: 1px solid $color-hairline;
+  border-radius: $radius-md;
+  padding: $space-xs $space-sm;
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
-.userName {
-  font-size: $font-size-label-caps;
-  font-weight: $font-weight-semibold;
+// ─── Nav ──────────────────────────────────────────────────────────────────────
+.nav {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-xxl;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding-bottom: $space-xxs;
+  text-decoration: none;
   color: $color-on-surface-variant;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 12px;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.02em;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+
+  svg {
+    opacity: 0.55;
+    transition: opacity 0.15s ease;
+  }
+
+  &:hover {
+    color: $color-on-surface;
+    svg { opacity: 0.8; }
+  }
+
+  &--active {
+    color: $color-primary-action;
+    border-bottom-color: $color-primary-action;
+    svg { opacity: 1; }
+  }
 }
 
+// ─── User badge ───────────────────────────────────────────────────────────────
+.userBadge {
+  flex-shrink: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-xxs;
+  padding: 8px $space-sm;
+  border-radius: $radius-full;
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+  white-space: nowrap;
+
+  &--admin {
+    background: #b91c1c;
+    color: #fff;
+  }
+
+  &--user {
+    background: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+  }
+}
+
+// ─── Main ─────────────────────────────────────────────────────────────────────
 .main {
   flex: 1;
-  padding: $space-xl $space-base;
-  max-width: 720px;
   width: 100%;
-  margin: 0 auto;
+}
 
-  @media (min-width: 640px) {
-    padding: $space-xxl $space-xl;
-  }
+// ─── Footer ───────────────────────────────────────────────────────────────────
+.footer {
+  background: $color-surface-lowest;
+  border-top: 1px solid $color-hairline;
+  margin-top: auto;
+}
+
+.footerInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $space-lg $space-xl;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerBrand {
+  font-size: 14px;
+  font-weight: $font-weight-bold;
+  color: $color-on-surface;
+}
+
+.footerCopy {
+  font-size: 13px;
+  color: $color-on-surface-variant;
 }

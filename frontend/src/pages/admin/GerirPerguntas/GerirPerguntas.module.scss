@@ -1,135 +1,301 @@
 .page {
-  display: flex;
-  flex-direction: column;
-  gap: $space-xl;
+  padding: $space-xxl $space-xl;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxl;
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
 .header {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: $space-base;
+  flex-wrap: wrap;
 }
 
 .title {
-  font-size: $font-size-headline-md;
-  font-weight: $font-weight-regular;
+  font-size: 36px;
+  font-weight: $font-weight-bold;
   color: $color-on-surface;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
 }
 
-.filters {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: $space-sm;
-  align-items: end;
+.subtitle {
+  font-size: 14px;
+  color: $color-on-surface-variant;
+  margin-top: $space-xxs;
 }
 
-.list {
+// ─── Controls ─────────────────────────────────────────────────────────────────
+.controls {
   display: flex;
-  flex-direction: column;
   gap: $space-sm;
+  align-items: center;
 }
 
-.questionRow {
-  display: flex;
-  align-items: flex-start;
-  gap: $space-base;
-  padding: $space-base;
-  border-bottom: 1px solid $color-hairline;
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.questionInfo {
+.searchBox {
   flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: $space-xxs;
+  align-items: center;
+  gap: $space-sm;
+  background: $color-surface-lowest;
+  border: 1px solid $color-hairline;
+  border-radius: $radius-full;
+  padding: $space-xs $space-base;
 }
 
-.questionText {
-  font-size: $font-size-body-md;
+.searchIcon { font-size: 14px; opacity: 0.5; }
+
+.searchInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: $font-family;
+  font-size: 14px;
   color: $color-on-surface;
+  outline: none;
+  &::placeholder { color: $color-on-surface-variant; }
+}
+
+.filterBtn {
+  padding: $space-xs $space-base;
+  border: 1.5px solid $color-hairline;
+  border-radius: $radius-full;
+  background: $color-surface-lowest;
+  font-size: 13px;
+  font-weight: $font-weight-semibold;
+  font-family: $font-family;
+  color: $color-on-surface;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s ease;
+
+  &:hover { border-color: $color-on-surface-variant; }
+}
+
+// ─── Grid ─────────────────────────────────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $space-base;
+
+  @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 540px) { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: $color-surface-lowest;
+  border: 1px solid $color-hairline;
+  border-radius: $radius-xl;
+  padding: $space-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $space-sm;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    border-color: $color-primary-action;
+    box-shadow: 0 4px 16px rgba($color-primary-action, 0.1);
+  }
+
+  &--inactive { opacity: 0.55; }
+}
+
+.cardTags {
+  display: flex;
+  gap: $space-xs;
+  flex-wrap: wrap;
+}
+
+.disciplinaTag {
+  font-size: 11px;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px $space-sm;
+  border-radius: $radius-full;
+  background: rgba($color-primary-action, 0.1);
+  color: $color-primary-action;
+}
+
+.inactiveTag {
+  font-size: 11px;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px $space-sm;
+  border-radius: $radius-full;
+  background: rgba($color-semantic-down, 0.1);
+  color: $color-semantic-down;
+}
+
+.cardText {
+  font-size: 14px;
+  color: $color-on-surface;
+  line-height: 1.5;
+  flex: 1;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.questionMeta {
+.cardFooter {
   display: flex;
-  gap: $space-sm;
-  font-size: $font-size-label-caps;
+  justify-content: space-between;
+  font-size: 12px;
   color: $color-on-surface-variant;
   font-weight: $font-weight-semibold;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  padding-top: $space-xs;
+  border-top: 1px solid $color-hairline;
 }
 
-.questionActions {
+.cardId { font-variant-numeric: tabular-nums; }
+
+.deleteBtn {
+  position: absolute;
+  top: $space-sm;
+  right: $space-sm;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: $radius-default;
+  opacity: 0;
+  transition: opacity 0.15s ease, background 0.15s ease;
   display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .card:hover & { opacity: 1; }
+  &:hover { background: $color-error-container; }
+}
+
+// ─── Pagination ───────────────────────────────────────────────────────────────
+.pagination {
+  display: flex;
+  justify-content: center;
   gap: $space-xs;
-  flex-shrink: 0;
+}
+
+.pageBtn {
+  min-width: 36px;
+  height: 36px;
+  border-radius: $radius-full;
+  border: 1.5px solid $color-hairline;
+  background: $color-surface-lowest;
+  color: $color-on-surface;
+  font-size: 14px;
+  font-family: $font-family;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:disabled { opacity: 0.4; cursor: default; }
+  &:hover:not(:disabled) { border-color: $color-on-surface; }
+  &--active { background: $color-on-surface; color: $color-surface-lowest; border-color: $color-on-surface; }
 }
 
 .empty {
   text-align: center;
   padding: $space-xxl;
   color: $color-on-surface-variant;
+  font-size: 15px;
 }
 
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: $space-base;
-
-  span {
-    font-size: $font-size-label-caps;
-    color: $color-on-surface-variant;
-    font-weight: $font-weight-semibold;
-  }
-}
-
-.inactive {
-  opacity: 0.5;
-}
-
-.confirmOverlay {
+// ─── Delete modal ─────────────────────────────────────────────────────────────
+.overlay {
   position: fixed;
   inset: 0;
-  background: rgba($color-inverse-surface, 0.5);
+  background: rgba(0, 0, 0, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: $space-base;
-  z-index: 200;
+  z-index: 300;
 }
 
-.confirmModal {
+.modal {
+  background: $color-surface-lowest;
+  border-radius: $radius-xl;
+  padding: $space-xl;
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: $space-base;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
 }
 
-.confirmTitle {
-  font-size: $font-size-title-md;
-  font-weight: $font-weight-semibold;
+.modalIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: $radius-full;
+  background: $color-error-container;
+  color: $color-on-error-container;
+  font-size: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalTitle {
+  font-size: 17px;
+  font-weight: $font-weight-bold;
   color: $color-on-surface;
 }
 
-.confirmText {
+.modalDesc {
+  font-size: 14px;
   color: $color-on-surface-variant;
+  line-height: 1.5;
 }
 
-.confirmActions {
+.modalActions {
   display: flex;
-  gap: $space-sm;
-  justify-content: flex-end;
+  gap: $space-base;
+  width: 100%;
+  padding-top: $space-xs;
+}
+
+.cancelBtn {
+  flex: 1;
+  padding: $space-sm;
+  border-radius: $radius-full;
+  border: 1.5px solid $color-hairline;
+  background: $color-surface-low;
+  color: $color-on-surface;
+  font-size: 15px;
+  font-weight: $font-weight-semibold;
+  font-family: $font-family;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+  &:hover { border-color: $color-on-surface; }
+}
+
+.confirmBtn {
+  flex: 1;
+  padding: $space-sm;
+  border-radius: $radius-full;
+  border: none;
+  background: #b91c1c;
+  color: #fff;
+  font-size: 15px;
+  font-weight: $font-weight-semibold;
+  font-family: $font-family;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+  &:hover { opacity: 0.88; }
 }

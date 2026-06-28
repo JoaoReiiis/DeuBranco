@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { Card } from '../../components/ui/Card/Card';
+import { Logo } from '../../components/ui/Logo/Logo';
 import { Input } from '../../components/ui/Input/Input';
 import { Button } from '../../components/ui/Button/Button';
 import styles from './Login.module.scss';
@@ -32,40 +32,46 @@ export function Login() {
   }
 
   return (
-    <Card>
-      <div className={styles.card}>
-        <h2 className={styles.title}>Entrar na plataforma</h2>
-        <form className={styles.form} onSubmit={handleSubmit} noValidate>
-          <Input
-            id="email"
-            label="E-mail"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="seu@email.com"
-            required
-            autoComplete="email"
-          />
-          <Input
-            id="senha"
-            label="Senha"
-            type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            placeholder="••••••••"
-            required
-            autoComplete="current-password"
-          />
-          {error && <p className={styles.error}>{error}</p>}
-          <Button type="submit" fullWidth disabled={loading}>
-            {loading ? 'Entrando...' : 'Entrar'}
-          </Button>
-        </form>
-        <p className={styles.divider}>Não tem uma conta?</p>
-        <Button variant="secondary" fullWidth onClick={() => navigate('/register')}>
-          Criar conta
-        </Button>
+    <div className={styles.card}>
+      <div className={styles.logoArea}>
+        <p className={styles.welcomeText}>Bem Vindo ao</p>
+        <Logo variant="horizontal" height={56} />
       </div>
-    </Card>
+
+      <form className={styles.form} onSubmit={handleSubmit} noValidate>
+        <Input
+          id="email"
+          label="E-mail"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="seu@email.com"
+          required
+          autoComplete="email"
+        />
+        <Input
+          id="senha"
+          label="Senha"
+          type="password"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+          placeholder="••••••••"
+          required
+          autoComplete="current-password"
+        />
+        {error && <p className={styles.error}>{error}</p>}
+        <Button type="submit" fullWidth disabled={loading}>
+          {loading ? 'Entrando...' : 'Login →'}
+        </Button>
+      </form>
+
+      <div className={styles.links}>
+        <a href="#" className={styles.link}>Esqueceu sua senha?</a>
+        <p className={styles.linkText}>
+          Não tem uma conta?{' '}
+          <Link to="/register" className={styles.link}>Criar conta</Link>
+        </p>
+      </div>
+    </div>
   );
 }
