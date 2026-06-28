@@ -311,4 +311,4 @@ Projeto desenvolvido para fins acadêmicos na **Universidade Federal de Lavras (
 |---|---|
 | Giovane Felipe Godoi Oliveira | [@giogodoi](https://github.com/giogodoi) |
 | João Vitor Reis Alvarenga | [@JoaoReiiis](https://github.com/JoaoReiiis) |
-| Caio Teixeira Ladeira | — |
+| Caio Teixeira Ladeira | [@caiotlad](https://github.com/caiotlad). |
