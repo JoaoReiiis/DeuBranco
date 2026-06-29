@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { Input } from '../../components/ui/Input/Input';
@@ -13,6 +13,22 @@ export function Home() {
   const [pin, setPin] = useState('');
   const [pinError, setPinError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [totalPontos, setTotalPontos] = useState<number | null>(null);
+  const [partidasJogadas, setPartidasJogadas] = useState<number | null>(null);
+
+  useEffect(() => {
+    partidaService
+      .getHistory()
+      .then((historico) => {
+        const finalizadas = historico.filter(h => h.statusSala === 'FINALIZADA');
+        setTotalPontos(finalizadas.reduce((acc, h) => acc + (h.scorePartida ?? 0), 0));
+        setPartidasJogadas(finalizadas.length);
+      })
+      .catch(() => {
+        setTotalPontos(0);
+        setPartidasJogadas(0);
+      });
+  }, []);
 
   async function handleJoinByPin() {
     if (!pin.trim()) return;
@@ -78,16 +94,26 @@ export function Home() {
         {/* Stats */}
         <div className={styles.stats}>
           <div className={styles.statCard}>
-            <span className={styles.statLabel}>Rank</span>
-            <span className={styles.statValue}>—</span>
+            <span className={styles.statLabel}>Pontuação total</span>
+            <span className={styles.statValue}>
+              {totalPontos === null ? '—' : totalPontos.toLocaleString('pt-BR')}
+            </span>
           </div>
           <div className={styles.statCard}>
-            <span className={styles.statLabel}>Pontos</span>
-            <span className={styles.statValue}>0</span>
+            <span className={styles.statLabel}>Partidas jogadas</span>
+            <span className={styles.statValue}>
+              {partidasJogadas === null ? '—' : partidasJogadas}
+            </span>
           </div>
           <div className={styles.statCard}>
-            <span className={styles.statLabel}>Win %</span>
-            <span className={styles.statValue}>—</span>
+            <span className={styles.statLabel}>Média / partida</span>
+            <span className={styles.statValue}>
+              {totalPontos === null || partidasJogadas === null
+                ? '—'
+                : partidasJogadas > 0
+                  ? Math.round(totalPontos / partidasJogadas).toLocaleString('pt-BR')
+                  : 0}
+            </span>
           </div>
         </div>
 

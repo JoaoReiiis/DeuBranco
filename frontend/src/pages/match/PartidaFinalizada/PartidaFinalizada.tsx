@@ -21,7 +21,7 @@ export function PartidaFinalizada() {
   function getState(questionId: number, letter: Alternativa): 'default' | 'selected' | 'correct' | 'wrong' {
     const answer = match.answers.find(a => a.partidaQuestaoId === questionId);
     if (!answer) return 'default';
-    if (answer.alternativaMarcada === letter) {
+    if (answer.alternativaMarcada?.toUpperCase() === letter) {
       return answer.acertou ? 'correct' : 'wrong';
     }
     return 'default';

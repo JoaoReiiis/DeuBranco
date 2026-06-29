@@ -11,7 +11,7 @@ import { QuizOption } from '../../../components/domain/QuizOption/QuizOption';
 import { ProgressBar } from '../../../components/ui/ProgressBar/ProgressBar';
 import styles from './JogoAtivo.module.scss';
 
-const LETTERS: Alternativa[] = ['A', 'B', 'C', 'D'];
+const LETTERS: Alternativa[] = ['A', 'B', 'C', 'D', 'E'];
 
 export function JogoAtivo() {
   const { matchId: paramId } = useParams<{ matchId: string }>();
@@ -26,6 +26,12 @@ export function JogoAtivo() {
   const [remaining, setRemaining] = useState(match.tempoDeJogo);
   const startTimeRef = useRef(Date.now());
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const navigationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const finalizedRef = useRef(false);
+
+  useEffect(() => {
+    return () => { if (navigationTimeoutRef.current) clearTimeout(navigationTimeoutRef.current); };
+  }, []);
 
   useEffect(() => {
     if (match.questions.length === 0) {
@@ -74,7 +80,10 @@ export function JogoAtivo() {
       // silently fail
     }
 
-    setTimeout(() => {
+    navigationTimeoutRef.current = setTimeout(() => {
+      // Se a partida já foi finalizada (PARTIDA_FINALIZADA chegou), o pódio
+      // assume o controle — não navegamos para a tela de espera.
+      if (finalizedRef.current) return;
       if (currentIndex < match.questions.length - 1) {
         setCurrentIndex(prev => prev + 1);
       } else {
@@ -85,6 +94,8 @@ export function JogoAtivo() {
 
   const handleStatus = useCallback((e: PartidaEventoResponse) => {
     if (e.tipo === 'PARTIDA_FINALIZADA') {
+      finalizedRef.current = true;
+      if (navigationTimeoutRef.current) clearTimeout(navigationTimeoutRef.current);
       const dados = e.dados as { participantes?: ParticipacaoResponse[] };
       if (dados.participantes) match.setLeaderboard(dados.participantes);
       navigate(`/match/${matchId}/podio`, { replace: true });
